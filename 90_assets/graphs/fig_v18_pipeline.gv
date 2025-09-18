@@ -1,0 +1,16 @@
+digraph v18_pipeline {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", color=black, fillcolor=lightgray, fontsize=12];
+
+    subgraph cluster_v18 {
+        label="v18: High-Recall RAG Baseline";
+        style="rounded,dashed";
+        color=blue;
+
+        retr [label="Multi-vector Retrieval\n(top-k snippets)", fillcolor=lightblue];
+        llm [label="LLM Extraction\n(strict JSON, schema aligned)", fillcolor=lightgoldenrod1];
+        out [label="Structured Output\n(fields filled where evidence exists)", fillcolor=palegreen];
+
+        retr -> llm -> out;
+    }
+}

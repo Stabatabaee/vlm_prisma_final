@@ -1,0 +1,422 @@
+2024 International Joint Conference on Neural Networks (IJCNN) | 979-8-3503-5931-2/24/$31.00 ©2024 IEEE | DOI: 10.1109/IJCNN60899.2024.10650332
+
+Report Generation from X-Ray imaging
+by Retrieval-Augmented Generation and
+improved Image-Text Matching
+Mario Luca Bernardi
+
+Marta Cimitile
+
+Dept. of Engineering
+University of Sannio
+Benevento, Italy
+bernardi@unisannio.it
+
+Dept. of Law and Digital Society
+UnitelmaSapienza University
+Rome, Italy
+marta.cimitile@unitelmasapienza.it
+
+Abstract—Creating radiology reports is a vital but timeintensive task that involves analyzing images, consulting
+documents, and evaluating data. This process, heavily reliant
+on human effort, is prone to errors that can vary with
+the radiologists experience. Consequently, automating the
+generation of radiology reports is a key research goal due
+to its potential impact on medical procedures and patient
+care.
+This work proposes a multimodal approach speciﬁcally
+designed for generating radiological reports from chest Xrays (CXRs). Our method integrates a LLaMa large language model with Retrieval Augmented Generation (RAG),
+enhanced by a modiﬁed ALBEF embedding model that
+exploits efﬁcient organ semantic segmentation and triple
+contrastive loss (called EALBEF). The combination of these
+two components allows radiological report generation that
+surpasses current state-of-the-art methods in terms of quality
+and accuracy. Our approach demonstrates a signiﬁcant enhancement in the radiologist-speciﬁc metrics (e.g., RadCliQ),
+as well as across various generic lexical-based metrics (e.g.,
+GLEU). Quantitative analyses 
+
+---
+
+a key research goal due
+to its potential impact on medical procedures and patient
+care.
+This work proposes a multimodal approach speciﬁcally
+designed for generating radiological reports from chest Xrays (CXRs). Our method integrates a LLaMa large language model with Retrieval Augmented Generation (RAG),
+enhanced by a modiﬁed ALBEF embedding model that
+exploits efﬁcient organ semantic segmentation and triple
+contrastive loss (called EALBEF). The combination of these
+two components allows radiological report generation that
+surpasses current state-of-the-art methods in terms of quality
+and accuracy. Our approach demonstrates a signiﬁcant enhancement in the radiologist-speciﬁc metrics (e.g., RadCliQ),
+as well as across various generic lexical-based metrics (e.g.,
+GLEU). Quantitative analyses of the models outputs reveal a
+notable increase in ﬂuency and accuracy, with a marked reduction in issues such as hallucinations and source-reference
+divergences in the generated reports.
+Index Terms—Deep Learning, X-Ray imaging, Report Generation, Image-Text Match, Large Language Models (LLMs)
+
+I. I NTRODUCTION
+Writing radiology reports is a critical task that requires the capability to analyze the radiographs (images)
+and write the obtained ﬁndings (text). This activity is
+strongly time-consuming, human-centered, and subject
+to errors also according to the radiologist experience [21].
+For this reason, the automatic generation of radiology
+reports represents an important challenge for developers
+and researchers given its impact on medical processes
+and patient care [6], [13]. Several rece
+
+---
+
+of the models outputs reveal a
+notable increase in ﬂuency and accuracy, with a marked reduction in issues such as hallucinations and source-reference
+divergences in the generated reports.
+Index Terms—Deep Learning, X-Ray imaging, Report Generation, Image-Text Match, Large Language Models (LLMs)
+
+I. I NTRODUCTION
+Writing radiology reports is a critical task that requires the capability to analyze the radiographs (images)
+and write the obtained ﬁndings (text). This activity is
+strongly time-consuming, human-centered, and subject
+to errors also according to the radiologist experience [21].
+For this reason, the automatic generation of radiology
+reports represents an important challenge for developers
+and researchers given its impact on medical processes
+and patient care [6], [13]. Several recent studies show
+AI-based solutions to perform automatic report generation [2], [4]. For example, the adoption of convolutionrecurrent architectures (CNN-RNN) such as the visual
+attention on the recurrent decoder is successfully introduced to generate automatic reports [1]. Superior results
+are also achieved by using GPT2 [1] since the combination of visual features with semantic tag embeddings
+
+provides faster training and reduces the need to use
+a speciﬁc vocabulary. However, the limitation of the
+existing approaches regards the tendency to generate
+hallucinated information and self-contradictory claims
+[21]. This is due to the lack of medical knowledge
+useful to answer speciﬁc health questions. In this paper, we introduce an automatic X-ray report generation approach based on Retrieval-A
+
+---
+
+nt studies show
+AI-based solutions to perform automatic report generation [2], [4]. For example, the adoption of convolutionrecurrent architectures (CNN-RNN) such as the visual
+attention on the recurrent decoder is successfully introduced to generate automatic reports [1]. Superior results
+are also achieved by using GPT2 [1] since the combination of visual features with semantic tag embeddings
+
+provides faster training and reduces the need to use
+a speciﬁc vocabulary. However, the limitation of the
+existing approaches regards the tendency to generate
+hallucinated information and self-contradictory claims
+[21]. This is due to the lack of medical knowledge
+useful to answer speciﬁc health questions. In this paper, we introduce an automatic X-ray report generation approach based on Retrieval-Augmented Generation (RAG) and LLaMA Large Language Model (LLM)
+that exploits improved image-text matching. Differently
+from other approaches, in this study, we propose a multimodal representation of the image and the text through
+the adoption of an ALign BEfore Fuse (ALBEF) based
+method. This allows us to obtain a stronger connection
+between input images and texts and to improve the
+image-text matching. Moreover, since we avoid the pretraining of the LLM network using RAG our approach is
+more efﬁcient and generates more accurate reports. The
+evaluation of the proposed approach is performed on the
+well-known available dataset called MIMIC-CXR [16].
+The main contributions of this paper are the answers
+to the following research questions, investigated in the
+remainder of this work:
+RQ1: What 
+
+---
+
+ugmented Generation (RAG) and LLaMA Large Language Model (LLM)
+that exploits improved image-text matching. Differently
+from other approaches, in this study, we propose a multimodal representation of the image and the text through
+the adoption of an ALign BEfore Fuse (ALBEF) based
+method. This allows us to obtain a stronger connection
+between input images and texts and to improve the
+image-text matching. Moreover, since we avoid the pretraining of the LLM network using RAG our approach is
+more efﬁcient and generates more accurate reports. The
+evaluation of the proposed approach is performed on the
+well-known available dataset called MIMIC-CXR [16].
+The main contributions of this paper are the answers
+to the following research questions, investigated in the
+remainder of this work:
+RQ1: What is the impact of integrating the enhanced
+segmentation-driven ALign BEfore Fuse (EALBEF) method
+with Retrieval-Augmented Generation (RAG) and the LLaMA
+Large Language Model (LLM) on the accuracy and efﬁciency
+of automatic X-ray report generation, in comparison to traditional models?
+RQ2: What are the implications of using the Enhanced
+ALBEF network in terms of reducing the generation of hallucinated information and self-contradictory claims in automated
+radiology reports?
+The rest of the document is structured as follows: in
+Section II the most relevant related work on imagetext matching is reported, Section III concerns the fundamental concepts regarding the LLM, RAG, LLAMA,
+and ELBEF. Section IV describes the approach used in a
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTO
+
+---
+
+is the impact of integrating the enhanced
+segmentation-driven ALign BEfore Fuse (EALBEF) method
+with Retrieval-Augmented Generation (RAG) and the LLaMA
+Large Language Model (LLM) on the accuracy and efﬁciency
+of automatic X-ray report generation, in comparison to traditional models?
+RQ2: What are the implications of using the Enhanced
+ALBEF network in terms of reducing the generation of hallucinated information and self-contradictory claims in automated
+radiology reports?
+The rest of the document is structured as follows: in
+Section II the most relevant related work on imagetext matching is reported, Section III concerns the fundamental concepts regarding the LLM, RAG, LLAMA,
+and ELBEF. Section IV describes the approach used in a
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 13:37:57 UTC from IEEE Xplore. Restrictions apply.
+
+detailed manner. The description of the empirical validation is reported in Section V while Section VI describes
+the results obtained. Finally, Section VII discusses the
+conclusions of the work.
+II. R ELATED W ORK : I MAGE -T EXT MATCHING
+The image-text matching task consists to perform a
+binary classiﬁcation with the aim to predict whether
+images and texts describe the same events or objects [15].
+The topic of radiology report generation is quite known
+in literature. Some studies propose approaches based on
+image-captioning and use a transformer architecture. For
+example, the approaches described in [7] and in [19]
+use respectively a memory-driven Transformer and a
+Meshed-Memory Transformer to directly g
+
+---
+
+N. Downloaded on July 29,2025 at 13:37:57 UTC from IEEE Xplore. Restrictions apply.
+
+detailed manner. The description of the empirical validation is reported in Section V while Section VI describes
+the results obtained. Finally, Section VII discusses the
+conclusions of the work.
+II. R ELATED W ORK : I MAGE -T EXT MATCHING
+The image-text matching task consists to perform a
+binary classiﬁcation with the aim to predict whether
+images and texts describe the same events or objects [15].
+The topic of radiology report generation is quite known
+in literature. Some studies propose approaches based on
+image-captioning and use a transformer architecture. For
+example, the approaches described in [7] and in [19]
+use respectively a memory-driven Transformer and a
+Meshed-Memory Transformer to directly generate a radiology report. Authors in [26] use contrastive learning to
+perform X-ray report generation. Their idea idea is to introduce a weakly supervised contrastive loss that assigns
+higher scores to the reports that are semantically similar
+to the target. Using a large set of negative examples
+in the training step, the model produces high-quality
+reports showing improved performance with respect to
+the alternative approaches. Starting from the awareness
+that a shortcoming of the existing approaches is due to
+the presence of inconsistent information in the generated
+report, the CXR-RePaiR method [11] propose an imagetext retrieval method able to retrieve a report using
+pre-trained unimodal encoders to obtain the similarity
+score. Starting from the CXR-RePaiR method, the X-REM
+approach 
+
+---
+
+enerate a radiology report. Authors in [26] use contrastive learning to
+perform X-ray report generation. Their idea idea is to introduce a weakly supervised contrastive loss that assigns
+higher scores to the reports that are semantically similar
+to the target. Using a large set of negative examples
+in the training step, the model produces high-quality
+reports showing improved performance with respect to
+the alternative approaches. Starting from the awareness
+that a shortcoming of the existing approaches is due to
+the presence of inconsistent information in the generated
+report, the CXR-RePaiR method [11] propose an imagetext retrieval method able to retrieve a report using
+pre-trained unimodal encoders to obtain the similarity
+score. Starting from the CXR-RePaiR method, the X-REM
+approach [15] introduces a multimodal encoder based
+on a supervised contrastive learning associating to the
+chest X-ray image the corresponding radiology reports
+according to their clinical labels. This approaches ensures
+sophisticated judgment since the image-text matching
+score can be ﬁne-tuned on a context dataset.
+III. B ACKGROUND
+A. Large Language Models and RAG
+Large Language Models (LLMs) are deep neural
+network models that use large amounts of data to
+learn undiscovered patterns and relationships in natural
+language text [20]. A promising solution to improve
+LLM accuracy and credibility (especially in knowledgeintensive tasks) and avoid the effort required by complex
+ﬁne-tuning is represented by the Retrieval-Augmented
+Generation (RAG) [17] which is becoming a popular
+paradigm in LLM’s syst
+
+---
+
+[15] introduces a multimodal encoder based
+on a supervised contrastive learning associating to the
+chest X-ray image the corresponding radiology reports
+according to their clinical labels. This approaches ensures
+sophisticated judgment since the image-text matching
+score can be ﬁne-tuned on a context dataset.
+III. B ACKGROUND
+A. Large Language Models and RAG
+Large Language Models (LLMs) are deep neural
+network models that use large amounts of data to
+learn undiscovered patterns and relationships in natural
+language text [20]. A promising solution to improve
+LLM accuracy and credibility (especially in knowledgeintensive tasks) and avoid the effort required by complex
+ﬁne-tuning is represented by the Retrieval-Augmented
+Generation (RAG) [17] which is becoming a popular
+paradigm in LLM’s systems. The underlying idea of
+the RAG approach is the merging of LLMs knowledge
+with specialized, vast, and dynamic data coming from
+external repositories [17]. The initial query prompts the
+external retrieval of pertinent information via search
+algorithms. The obtained information is then sent to the
+LLMs prompts which provides further context information [12]. According to this, the RAG approach combines information retrieval mechanisms with In-Context
+Learning (ICL) [9] to improve the LLMs performance.
+
+The RAG approach includes a retriever and a generator
+[17] and consists of three steps (retrieve, augment, and
+generate). In the retrieving step, the user query x is used
+to retrieve relevant context (text documents z) from an
+external knowledge source by the retriever pη(z|x) with
+paramet
+
+---
+
+ems. The underlying idea of
+the RAG approach is the merging of LLMs knowledge
+with specialized, vast, and dynamic data coming from
+external repositories [17]. The initial query prompts the
+external retrieval of pertinent information via search
+algorithms. The obtained information is then sent to the
+LLMs prompts which provides further context information [12]. According to this, the RAG approach combines information retrieval mechanisms with In-Context
+Learning (ICL) [9] to improve the LLMs performance.
+
+The RAG approach includes a retriever and a generator
+[17] and consists of three steps (retrieve, augment, and
+generate). In the retrieving step, the user query x is used
+to retrieve relevant context (text documents z) from an
+external knowledge source by the retriever pη(z|x) with
+parameters η. Using an embedding model, the query
+is embedded into a vector space and included as the
+additional context in the vector database. According to
+the similarities between vectors and query, the k closest
+documents from the vector database are selected. In
+the augment step, the initial query and the obtained
+additional context are combined into a prompt template.
+In the last step, the retrieval-augmented prompt is fed
+to the LLM which generates an answer to the question
+on the base of the contextual information obtained by
+retrieved chunks.
+B. LLAMA
+LLaMa [24] is a set of foundation large language
+models spacing from 7B to 70B parameters. They are
+trained on a very large amount of tokens coming out
+from public datasets obtaining higher performance with
+respect to state-of-the-art appro
+
+---
+
+ers η. Using an embedding model, the query
+is embedded into a vector space and included as the
+additional context in the vector database. According to
+the similarities between vectors and query, the k closest
+documents from the vector database are selected. In
+the augment step, the initial query and the obtained
+additional context are combined into a prompt template.
+In the last step, the retrieval-augmented prompt is fed
+to the LLM which generates an answer to the question
+on the base of the contextual information obtained by
+retrieved chunks.
+B. LLAMA
+LLaMa [24] is a set of foundation large language
+models spacing from 7B to 70B parameters. They are
+trained on a very large amount of tokens coming out
+from public datasets obtaining higher performance with
+respect to state-of-the-art approaches. Looking for an
+example of the 65B parameters model, recent studies [24]
+show that at the higher end of the scale, it is competitive
+with Chinchilla or PaLM-540B large language models.
+The training step is performed on large transformers by
+using a standard optimizer and the training stability is
+improved by normalizing the input of each transformer
+sub-layer. The training datasets are very heterogeneous
+spacing from different domains and including all the
+publicly available datasets that have been used for LLM
+training.
+C. ALign BEfore Fuse (ALBEF)
+ALign BEfore Fuse (ALBEF) [18] is a kind of Visionand-Language Pre-training method aimed to overrun
+limitations due to the high computational effort required.
+It is made of three main components: the image encoder, the text encoder, and t
+
+---
+
+aches. Looking for an
+example of the 65B parameters model, recent studies [24]
+show that at the higher end of the scale, it is competitive
+with Chinchilla or PaLM-540B large language models.
+The training step is performed on large transformers by
+using a standard optimizer and the training stability is
+improved by normalizing the input of each transformer
+sub-layer. The training datasets are very heterogeneous
+spacing from different domains and including all the
+publicly available datasets that have been used for LLM
+training.
+C. ALign BEfore Fuse (ALBEF)
+ALign BEfore Fuse (ALBEF) [18] is a kind of Visionand-Language Pre-training method aimed to overrun
+limitations due to the high computational effort required.
+It is made of three main components: the image encoder, the text encoder, and the multimodal encoder.
+The image encoder consists of a visual transformer ViTB/16 with twelve layers [10] initialized by using weights
+pre-trained on ImageNet-1k [23]. This allows to encode
+each input image into a sequence of embeddings. The
+text encoder and the multimodal encoder are built using a six-layer transformer [25]. They are respectively
+initialized using the ﬁrst and the last six layers of the
+BERTbase model [8]. Similarly to the image encoder, the
+text encoder is able to encode a text into a sequence of
+embeddings. The image and text embeddings are fed to
+the multimodal encoder and are fused at each layer of
+the multimodal encoder through cross-attention. Before
+the fusion, the image-text contrastive loss is used to
+align the unimodal representations of the couples of
+image/tex
+
+---
+
+he multimodal encoder.
+The image encoder consists of a visual transformer ViTB/16 with twelve layers [10] initialized by using weights
+pre-trained on ImageNet-1k [23]. This allows to encode
+each input image into a sequence of embeddings. The
+text encoder and the multimodal encoder are built using a six-layer transformer [25]. They are respectively
+initialized using the ﬁrst and the last six layers of the
+BERTbase model [8]. Similarly to the image encoder, the
+text encoder is able to encode a text into a sequence of
+embeddings. The image and text embeddings are fed to
+the multimodal encoder and are fused at each layer of
+the multimodal encoder through cross-attention. Before
+the fusion, the image-text contrastive loss is used to
+align the unimodal representations of the couples of
+image/text. The interactions between image and text
+are learned using an image/text matching loss and a
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 13:37:57 UTC from IEEE Xplore. Restrictions apply.
+
+masked-language-modeling loss [18]. Finally, the momentum model [18] is used in the training step to reduce
+the impact of noisy data.
+IV. T HE A UTOMATIC R EPORT G ENERATION A PPROACH
+In this study, we introduce the proposed approach to
+radiology report generation, framing it as a retrievalaugmented generation task employing advanced large
+language models, such as speciﬁc LLaMa variants.
+We have conceptualized the generation of radiology reports as a two-stage process: ﬁrstly, a retrievalaugmented phase where relevant ﬁndings are gathered
+and identiﬁed;
+
+---
+
+t. The interactions between image and text
+are learned using an image/text matching loss and a
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 13:37:57 UTC from IEEE Xplore. Restrictions apply.
+
+masked-language-modeling loss [18]. Finally, the momentum model [18] is used in the training step to reduce
+the impact of noisy data.
+IV. T HE A UTOMATIC R EPORT G ENERATION A PPROACH
+In this study, we introduce the proposed approach to
+radiology report generation, framing it as a retrievalaugmented generation task employing advanced large
+language models, such as speciﬁc LLaMa variants.
+We have conceptualized the generation of radiology reports as a two-stage process: ﬁrstly, a retrievalaugmented phase where relevant ﬁndings are gathered
+and identiﬁed; and secondly, a generative phase, where
+these ﬁndings are synthesized into a comprehensive
+radiology report using the data obtained in the retrieval
+phase.
+The architecture of the proposed approach is depicted
+in Figure 1. In the training step, the X-ray images are
+embedded using the image embedding model. Similarly,

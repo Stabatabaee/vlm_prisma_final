@@ -1,0 +1,12 @@
+ 
+<json>{
+  "File": "Report_Generation_from_X-Ray_imaging_by_Retrieval-Augmented_Generation_and_improved_Image-Text_Matching.pdf",
+  "Title": "Report Generation from X-Ray imaging by Retrieval-Augmented Generation and improved Image-Text Matching",
+  "Authors": "N/A",
+  "Modality": "X-Ray",
+  "Datasets": "MIMIC-CXR",
+  "Model Name": "LLaMA",
+  "Vision Encoder": "ViT-B/16",
+  "Language Decoder": "Transformer",
+  "Fusion Strategy": "Align Before Fuse (ALBEF)"
+}</json>

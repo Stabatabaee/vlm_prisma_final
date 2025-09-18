@@ -1,0 +1,7 @@
+Excluded to keep this kit lightweight:
+- .env (secrets)
+- backup_*.tar.gz
+- chroma_db/, .chromadb_v19/, .chroma_papers/ (vector DB caches)
+- **/pdfs/ (copyright/size)
+- **/.tmp_inputs/, **/runs/ (intermediate scratch)
+- figures/**.png.png, figures/**.pdf.pdf (dup exports)

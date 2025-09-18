@@ -1,0 +1,1 @@
+| Report_Generation_from_X-Ray_imaging_by_Retrieval-Augmented_Generation_and_improved_Image-Text_Matching.pdf | Report Generation From X-ray Imaging By Retrieval-augmented Generation And Improved Image-text Matching | N/A | X-Ray | MIMIC-CXR | ALBEF | ViT-B/16 | LLaMA | Cross-Attention |

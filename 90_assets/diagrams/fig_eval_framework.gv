@@ -1,0 +1,28 @@
+digraph eval_framework {
+  rankdir=LR;
+  nodesep=0.4; ranksep=0.5;
+  node [shape=box, style="rounded,filled", color=black, fontsize=12, fillcolor=white];
+
+  g0 [label="Gold set\n(ground truth labels\n+ availability)"];
+  p0 [label="Predictions\n(cleaned & canonicalized)"];
+
+  subgraph cluster_stage1 {
+    label="Stage 1: Availability Detection";
+    color=steelblue;
+    s1a [label="Detect presence\nof field in paper"];
+    s1b [label="Precision / Recall / F1\nvs gold availability"];
+    s1a -> s1b;
+  }
+
+  subgraph cluster_stage2 {
+    label="Stage 2: Conditional Accuracy";
+    color=darkorange;
+    s2a [label="Compare values only\non available cases"];
+    s2b [label="Availability-adjusted coverage\n(ceiling)"];
+    s2c [label="End-to-end yield\n(over all papers)"];
+    s2a -> s2b -> s2c;
+  }
+
+  g0 -> s1a; p0 -> s1a;
+  g0 -> s2a; p0 -> s2a;
+}

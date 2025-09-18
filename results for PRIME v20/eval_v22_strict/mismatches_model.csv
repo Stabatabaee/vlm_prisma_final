@@ -1,0 +1,63 @@
+File,Model_gold,Model_pred
+1-s2.0-S1361841522001578-main,CheXpert,"BERT, Transformer, LSTM, CNN"
+1-s2.0-S1361841523000592-main,ALBEF,"BERT, Transformer, LSTM, CNN"
+1-s2.0-S1532046423000023-main,ALBEF,"Transformer, LSTM, GRU, CNN"
+108_transforming_radiology_workflo,TrMRG,BLIP
+2020.emnlp-main.112,CheXpert,"BERT, Transformer, LSTM, CNN"
+2022.aacl-main.47,CheXpert,"Transformer, CNN"
+2024.bionlp-1.50,CheXpert,"BERT, Transformer, Vicuna, ViT"
+2024.lrec-main.529,ALBEF,"BERT, Transformer, CNN, CLIP"
+3583780.3614961,ALBEF,"ALBEF, BLIP-2, BLIP, Flamingo"
+978-3-030-32226-7_80,ALBEF,"LSTM, CNN"
+978-3-031-22695-3_37,CheXpert,"Transformer, LSTM, CNN, ViT"
+978-3-031-73158-7_4,ALBEF,Transformer
+978-981-99-9864-7_16,ALBEF,"BERT, Transformer, CNN, ViT, CLIP"
+A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation,TrMRG,"BERT, Transformer, CNN, ViT, ResNet50"
+Automated_Radiographic_Report_Generation_Purely_on_Transformer_A_Multicriteria_Supervised_Approach,TrMRG,"BERT, Transformer, LSTM, CNN, ViT"
+Automatic_Report_Generation_for_Chest_X-Ray_Images_via_Adversarial_Reinforcement_Learning,TrMRG,"LSTM, CNN"
+End-to-End_Clustering_Enhanced_Contrastive_Learning_for_Radiology_Reports_Generation,CXR-IRGen,"Transformer, CNN"
+Eye_Gaze_Guided_Cross-Modal_Alignment_Network_for_Radiology_Report_Generation,EGGCA-Net,"BERT, Transformer, LSTM, CNN, ViT"
+From_Observation_to_Concept_A_Flexible_Multi-View_Paradigm_for_Medical_Report_Generation,EGGCA-Net,"BERT, Transformer, LSTM"
+MATNet_Exploiting_Multi-Modal_Features_for_Radiology_Report_Generation,ALBEF,"Transformer, CNN"
+Multi-Grained_Radiology_Report_Generation_With_Sentence-Level_Image-Language_Contrastive_Learning,CXR-IRGen,"BERT, Transformer, CNN, CLIP"
+Self_Adaptive_Global-Local_Feature_Enhancement_for_Radiology_Report_Generation,CXR-IRGen,"Transformer, CNN, ViT"
+TSGET_Two-Stage_Global_Enhanced_Transformer_for_Automatic_Radiology_Report_Generation,TrMRG,"Transformer, LSTM, CNN, ViT, Swin, ResNet50"
+Xie_PairAug_What_Can_Augmented_Image-Text_Pairs_Do_for_Radiology_CVPR_2024_paper,CXR-IRGen,"BERT, LLaMA, Transformer, CNN, ViT, CLIP"
+cureus-0016-00000068298,GPT-4V,"Transformer, Vicuna"
+formative_v8i1e32690,ALBEF,"BLIP-2, BLIP"
+s41467-023-40260-7,CXR-IRGen,"CheXNet, Flamingo"
+s41591-024-03185-2,GPT-4V,LLaVA
+s41598-025-95666-8,CXR-IRGen,CheXNet
+strotzer-et-al-2024-toward-foundation-models-in-radiology-quantitative-assessment-of-gpt-4v-s-multimodal-and,CXR-IRGen,LLaVA
+1-s2.0-S1532046422002258-main,ALBEF,"BERT, GPT-2, GPT-3, Transformer, LSTM, CNN"
+1-s2.0-S1687850724000074-main,ALBEF,"Transformer, LSTM, CNN, ViT, Swin"
+1-s2.0-S2950162824000535-main,ALBEF,"BLIP-2, BLIP, LLaVA"
+2024.bionlp-1.35,MiniGPT-4,"MiniGPT-4, XrayGPT"
+2024.bionlp-1.52,LLaVA-Med,LLaVA
+29826-Article Text-33880-1-2-20240324,BLIP-2,"BLIP-2, BLIP, LLaVA, MiniGPT-4, XrayGPT"
+978-3-031-16452-1_56,ALBEF,"BERT, Transformer, CNN"
+978-3-031-66955-2_13,ALBEF,"BERT, GPT-2, Transformer, CNN, ViT"
+978-3-031-72390-2_45,ALBEF,"BERT, Transformer, CNN, ViT"
+978-981-97-5128-0_23,ALBEF,"BERT, Transformer, CNN, CLIP"
+9886_CoVT_CXR_Building_Chain_o,TrMRG,"BLIP-2, BLIP, Flamingo, LLaVA, MiniGPT-4, XrayGPT"
+A_Self-boosting_Framework_for_Automated_Radiographic_Report_Generation,CXR-IRGen,"BERT, Transformer, LSTM, CNN"
+Automatic_Radiology_Report_Generator_Using_Transformer_With_Contrast-Based_Image_Enhancement,TrMRG,CheXNet
+Collaborative_Multimodal_Diagnostic_Fusion_of_Pathological_Labels_and_Vision-Language_Model,EGGCA-Net,"BLIP, MiniGPT-4, XrayGPT"
+Enhancing_Medical_Vision-Language_Contrastive_Learning_via_Inter-Matching_Relation_Modeling,CXR-IRGen,"BERT, Transformer, CNN, ViT, CLIP, ResNet50"
+From_Chest_X-Rays_to_Radiology_Reports_A_Multimodal_Machine_Learning_Approach,CXR-IRGen,"LSTM, GRU, CNN"
+MEDIFICS_Model_Calling_Enhanced_VLM_for_Medical_VQA,CXR-IRGen,Flamingo
+Multi-Modal_Understanding_and_Generation_for_Medical_Images_and_Text_via_Vision-Language_Pre-Training,EGGCA-Net,"BERT, Transformer, CNN, ResNet50"
+Prior_Guided_Transformer_for_Accurate_Radiology_Reports_Generation,TrMRG,"Transformer, LSTM, CNN, ResNet50"
+S3-Net_A_Self-Supervised_Dual-Stream_Network_for_Radiology_Report_Generation,TrMRG,"BERT, Transformer, CNN, ViT, Swin"
+Shentu_CXR-IRGen_An_Integrated_Vision_and_Language_Model_for_the_Generation_WACV_2024_paper,CXR-IRGen,"Transformer, LSTM, CNN, ViT, CLIP"
+Token-Mixer_Bind_Image_and_Text_in_One_Embedding_Space_for_Medical_Image_Reporting,CXR-IRGen,"BLIP-2, BLIP, LLaVA"
+Wang_METransformer_Radiology_Report_Generation_by_Transformer_With_Multiple_Learnable_Expert_CVPR_2023_paper,TrMRG,"BERT, Transformer, LSTM, GRU, CNN, ViT"
+bioengineering-11-00351,CheXpert,"BERT, GPT-2, LLaMA, Transformer, CNN, ViT, Swin"
+fdgth-1-1535168,ALBEF,Flamingo
+liu19a,CheXpert,CheXNet
+paper11,TrMRG,CheXNet
+s00330-024-11339-6,BLIP-2,"BLIP-2, BLIP, LLaVA, XrayGPT"
+s41467-025-57426-0,Otter,"Flamingo, LLaVA"
+s41591-024-03302-1,Flamingo,"Flamingo, LLaVA"
+s41746-025-01807-8,CXR-IRGen,"BERT, LLaMA, Transformer, CNN, CLIP"
+xu23a,CXR-IRGen,"BERT, Transformer, CNN, ViT, CLIP, Swin"

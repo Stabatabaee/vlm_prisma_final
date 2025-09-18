@@ -1,0 +1,16 @@
+digraph v20_pipeline {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", color=black, fillcolor=lightgray, fontsize=12];
+
+    subgraph cluster_v20 {
+        label="v20: Deterministic Filler Module";
+        style="rounded,dashed";
+        color=darkgreen;
+
+        norm [label="Alias Dictionaries\n(regex, controlled vocab)", fillcolor=lightblue];
+        fill [label="Heuristic Filler\n(backfill missing,\ndefaults: 'Not reported')", fillcolor=lightgoldenrod1];
+        out [label="Normalized Structured Output\n(minimized blanks)", fillcolor=palegreen];
+
+        norm -> fill -> out;
+    }
+}

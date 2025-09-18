@@ -1,0 +1,74 @@
+digraph VLM_Pipeline {
+  rankdir=LR;
+  fontname="Helvetica";
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=12, color="#444444"];
+  edge [fontname="Helvetica", fontsize=10, color="#555555"];
+
+  // v18: High-Recall RAG Extractor
+  subgraph cluster_v18 {
+    label="v18: High-Recall RAG Extractor";
+    color="#2F6EC6"; style="rounded,dashed";
+
+    v18_corpus   [label="Corpus\n(PDF snippets)", shape=folder, fillcolor="#EFEFEF"];
+    v18_retr     [label="Retriever\n(embeddings and BM25)", fillcolor="#CCE2FF"];
+    v18_llm      [label="LLM Extractor\n(structured prompting)", fillcolor="#CFEFD3"];
+    v18_valid    [label="JSON Validator\n(schema, braces)", fillcolor="#EDEDED"];
+    v18_out      [label="v18 Output\n(strict evidence)", fillcolor="white"];
+
+    v18_corpus -> v18_retr -> v18_llm -> v18_valid -> v18_out;
+  }
+
+  // v20: Deterministic Filler Module
+  subgraph cluster_v20 {
+    label="v20: Deterministic Filler Module";
+    color="#E67E22"; style="rounded,dashed";
+
+    v20_in    [label="Input JSON", fillcolor="white"];
+    v20_alias [label="Alias Canonicalizer\n(regex and lexicons)", fillcolor="#FFE4D6"];
+    v20_back  [label="Heuristic Backfill\n(missing fields)", fillcolor="#FFE4D6"];
+    v20_out   [label="Canonical JSON\n(v20 hints and features)", fillcolor="white"];
+
+    v20_in -> v20_alias -> v20_back -> v20_out;
+  }
+
+  // v21: Cascade Hybrid (LLM + Deterministic)
+  subgraph cluster_v21 {
+    label="v21: Cascade Hybrid (LLM + Deterministic)";
+    color="#27AE60"; style="rounded,dashed";
+
+    v21_retr  [label="Retriever + LLM Extractor\n(strict mode)", fillcolor="#CFEFD3"];
+    v21_val   [label="Validator", fillcolor="#EDEDED"];
+    v21_fill  [label="Deterministic Filler\n(v20 module)", fillcolor="#FFE4D6"];
+    v21_gate  [label="Confidence Gate\n(fieldwise overwrite rules)", fillcolor="#EDEDED"];
+    v21_out   [label="v21 Output\n(balanced coverage)", fillcolor="white"];
+
+    v21_retr -> v21_val -> v21_fill -> v21_gate -> v21_out;
+  }
+
+  // v22: Ensemble Fusion (Exact Architecture)
+  subgraph cluster_v22 {
+    label="v22: Ensemble Fusion (exact architecture)";
+    color="#F1C40F"; style="rounded,dashed";
+
+    v22_in1 [label="Input A: v18 Output", fillcolor="white"];
+    v22_in2 [label="Input B: v21 Output", fillcolor="white"];
+    v22_in3 [label="Input C: v20 Hints", fillcolor="white"];
+
+    v22_norm  [label="Normalization and Alignment\n(alias pass, schema alignment)", fillcolor="#FFF7CC"];
+    v22_conf  [label="Confidence Scoring\n(snippet overlap, rule signals)", fillcolor="#FFF7CC"];
+    v22_vote  [label="Consensus and Conflict Rules\n(exact match, prefer strict, fallback deterministic)", fillcolor="#FFF7CC"];
+    v22_qa    [label="Quality Gate\n(schema and cross-field checks)", fillcolor="#EDEDED"];
+    v22_final [label="Final Table\n(v22)", shape=note, fillcolor="white"];
+
+    v22_in1 -> v22_norm;
+    v22_in2 -> v22_norm;
+    v22_in3 -> v22_norm;
+
+    v22_norm -> v22_conf -> v22_vote -> v22_qa -> v22_final;
+  }
+
+  // High-level flow (optional connectors)
+  v18_out -> v22_in1 [style=dotted, color="#2F6EC6"];
+  v20_out -> v22_in3 [style=dotted, color="#E67E22"];
+  v21_out -> v22_in2 [style=dotted, color="#27AE60"];
+}

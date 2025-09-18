@@ -1,0 +1,42 @@
+digraph G {
+  graph [rankdir=LR, fontsize=10, fontname="Helvetica", labelloc=top, labeljust=l, label="Wilson CIs: Availability-adjusted coverage (v18 → v22)"];
+  node  [shape=box, style="rounded,filled", color="#B0BEC5", fillcolor="#ECEFF1", fontname="Helvetica"];
+  edge  [color="#90A4AE", arrowsize=0.6];
+  { rank=same; key18 [label="v18", shape=plaintext, fontname="Helvetica-Bold"]; key22 [label="v22", shape=plaintext, fontname="Helvetica-Bold"]; }
+  subgraph cluster_legend { label="Legend"; fontsize=9; style="rounded,dashed"; color="#CFD8DC";
+    l1 [label="Node text: point estimate with Wilson 95% CI", shape=plaintext];
+    l2 [label="Edge color encodes Δ (v22−v18): green ≥ +5 pts, red ≤ −5 pts, orange small drop, grey ~no change", shape=plaintext];
+  }
+  n18_0 [label="Family\n10.0% [2.8–30.1%]\n(n=20)"];
+  n22_0 [label="Family\n15.0% [5.2–36.0%]\n(n=20)"];
+  { rank=same; n18_0; n22_0; }
+  n18_0 -> n22_0 [color="#EF6C00", penwidth=1.4, label="Δ 5.0 pts"];
+  n18_1 [label="Fusion\n90.0% [69.9–97.2%]\n(n=20)"];
+  n22_1 [label="Fusion\n85.0% [64.0–94.8%]\n(n=20)"];
+  { rank=same; n18_1; n22_1; }
+  n18_1 -> n22_1 [color="#C62828", penwidth=1.4, label="Δ -5.0 pts"];
+  n18_2 [label="Lang Dec\n30.0% [14.5–51.9%]\n(n=20)"];
+  n22_2 [label="Lang Dec\n30.0% [14.5–51.9%]\n(n=20)"];
+  { rank=same; n18_2; n22_2; }
+  n18_2 -> n22_2 [color="#616161", penwidth=1.4, label="Δ 0.0 pts"];
+  n18_3 [label="Model\n25.0% [11.2–46.9%]\n(n=20)"];
+  n22_3 [label="Model\n30.0% [14.5–51.9%]\n(n=20)"];
+  { rank=same; n18_3; n22_3; }
+  n18_3 -> n22_3 [color="#EF6C00", penwidth=1.4, label="Δ 5.0 pts"];
+  n18_4 [label="Objectives\n10.0% [2.8–30.1%]\n(n=20)"];
+  n22_4 [label="Objectives\n10.0% [2.8–30.1%]\n(n=20)"];
+  { rank=same; n18_4; n22_4; }
+  n18_4 -> n22_4 [color="#616161", penwidth=1.4, label="Δ 0.0 pts"];
+  n18_5 [label="RAG\n94.4% [74.2–99.0%]\n(n=18)"];
+  n22_5 [label="RAG\n94.4% [74.2–99.0%]\n(n=18)"];
+  { rank=same; n18_5; n22_5; }
+  n18_5 -> n22_5 [color="#616161", penwidth=1.4, label="Δ 0.0 pts"];
+  n18_6 [label="Task\n88.9% [67.2–96.9%]\n(n=18)"];
+  n22_6 [label="Task\n88.9% [67.2–96.9%]\n(n=18)"];
+  { rank=same; n18_6; n22_6; }
+  n18_6 -> n22_6 [color="#616161", penwidth=1.4, label="Δ 0.0 pts"];
+  n18_7 [label="Vision Enc\n52.9% [31.0–73.8%]\n(n=17)"];
+  n22_7 [label="Vision Enc\n58.8% [36.0–78.4%]\n(n=17)"];
+  { rank=same; n18_7; n22_7; }
+  n18_7 -> n22_7 [color="#2E7D32", penwidth=1.4, label="Δ 5.9 pts"];
+}

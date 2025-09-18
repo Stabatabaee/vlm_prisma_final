@@ -1,0 +1,1 @@
+| A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation.pdf | A Multi-modal Feature Fusion-based Approach For Chest X-ray Report Generation | Li et al. | X-Ray | IU X-ray | R2Gen | ViT-B/16 | Transformer | Multimodal Encoder |

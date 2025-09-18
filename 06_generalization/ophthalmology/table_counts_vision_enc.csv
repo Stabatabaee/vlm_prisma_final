@@ -1,0 +1,4 @@
+Vision Enc,Count,Percent
+ViT,3,60.0
+"CLIP, ViT",1,20.0
+"ViT, CLIP, ResNet50",1,20.0

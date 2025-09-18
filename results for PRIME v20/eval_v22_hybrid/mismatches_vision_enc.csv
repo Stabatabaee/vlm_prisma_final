@@ -1,0 +1,67 @@
+File,Vision Enc_gold,Vision Enc_pred
+1-s2.0-S1361841522001578-main,"ResNet50, CNN",CNN
+1-s2.0-S1361841523000592-main,"ResNet50, CNN",CNN
+1-s2.0-S1532046423000023-main,"ResNet50, CNN",CNN
+1-s2.0-S2352914821000472-main,"ResNet50, CNN",CNN
+2020.emnlp-main.112,"ResNet50, CNN",CNN
+2022.aacl-main.47,ViT,CNN
+2024.lrec-main.529,ViT,"CNN, CLIP"
+3583780.3614961,ViT,"ViT, CLIP"
+978-3-030-32226-7_80,ViT,CNN
+978-3-031-22695-3_37,ViT,"CNN, ViT"
+978-3-031-67751-9_7,ViT,"CNN, CLIP, ResNet50"
+978-981-99-9864-7_16,ViT,"CNN, ViT, CLIP"
+A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation,ViT,"CNN, ViT, ResNet50"
+Automated_Radiographic_Report_Generation_Purely_on_Transformer_A_Multicriteria_Supervised_Approach,ViT,"CNN, ViT"
+Automatic_Report_Generation_for_Chest_X-Ray_Images_via_Adversarial_Reinforcement_Learning,ViT,CNN
+End-to-End_Clustering_Enhanced_Contrastive_Learning_for_Radiology_Reports_Generation,ViT,CNN
+Eye_Gaze_Guided_Cross-Modal_Alignment_Network_for_Radiology_Report_Generation,"ResNet50, CNN","CNN, ViT"
+MATNet_Exploiting_Multi-Modal_Features_for_Radiology_Report_Generation,ViT,CNN
+PIIS2405844024035473,ViT,"CNN, ViT, Swin"
+Report_Generation_from_X-Ray_imaging_by_Retrieval-Augmented_Generation_and_improved_Image-Text_Matching,"CLIP, CNN",CNN
+Self_Adaptive_Global-Local_Feature_Enhancement_for_Radiology_Report_Generation,ViT,"CNN, ViT"
+TSGET_Two-Stage_Global_Enhanced_Transformer_for_Automatic_Radiology_Report_Generation,ViT,"CNN, ViT, Swin, ResNet50"
+Vision_Transformer_and_Language_Model_Based_Radiology_Report_Generation,ViT,"CNN, ViT"
+Xie_PairAug_What_Can_Augmented_Image-Text_Pairs_Do_for_Radiology_CVPR_2024_paper,ViT,"CNN, ViT, CLIP"
+bioengineering-10-00380,ViT,"CNN, ViT, CLIP"
+formative_v8i1e32690,ViT,CNN
+nihpp-rs4546309v1,ViT,"CNN, ViT, CLIP, Swin, ResNet50"
+ramesh22a,ViT,CLIP
+s00521-021-05943-6,ViT,"CNN, ResNet50"
+s11280-024-01315-x,ViT,CLIP
+s41467-023-40260-7,ViT,"CNN, ViT, CLIP, ResNet50"
+s41591-024-03185-2,ViT,"CNN, ViT, CLIP, ResNet50"
+s41598-025-95666-8,ViT,"CNN, ViT, CLIP"
+1-s2.0-S0933365723001471-main,ViT,"CNN, ViT, ResNet50"
+1-s2.0-S1687850724000074-main,ViT,"CNN, ViT, Swin"
+136950558,ResNet50,CNN
+2024.bionlp-1.35,ViT,CLIP
+2024.bionlp-1.52,ViT,"CNN, ViT, CLIP"
+29826-Article Text-33880-1-2-20240324,ViT,"ViT, CLIP"
+978-3-031-16452-1_56,ViT,CNN
+978-3-031-66955-2_13,ViT,"CNN, ViT"
+978-3-031-72390-2_45,ViT,"CNN, ViT"
+978-981-97-5128-0_23,ViT,"CNN, CLIP"
+Automatic_Radiology_Report_Generator_Using_Transformer_With_Contrast-Based_Image_Enhancement,ViT,"CNN, CLIP"
+Collaborative_Multimodal_Diagnostic_Fusion_of_Pathological_Labels_and_Vision-Language_Model,ViT,"ViT, CLIP"
+Enhancing_Medical_Vision-Language_Contrastive_Learning_via_Inter-Matching_Relation_Modeling,"CLIP, CNN","CNN, ViT, CLIP, ResNet50"
+From_Chest_X-Rays_to_Radiology_Reports_A_Multimodal_Machine_Learning_Approach,ViT,CNN
+InVERGe_Intelligent_Visual_Encoder_for_Bridging_Modalities_in_Report_Generation,ViT,"CNN, ViT, CLIP"
+Multi-Modal_Understanding_and_Generation_for_Medical_Images_and_Text_via_Vision-Language_Pre-Training,CNN,"CNN, ResNet50"
+Prior_Guided_Transformer_for_Accurate_Radiology_Reports_Generation,ViT,"CNN, ResNet50"
+S3-Net_A_Self-Supervised_Dual-Stream_Network_for_Radiology_Report_Generation,ViT,"CNN, ViT, Swin"
+Shentu_CXR-IRGen_An_Integrated_Vision_and_Language_Model_for_the_Generation_WACV_2024_paper,ViT,"CNN, ViT, CLIP"
+Token-Mixer_Bind_Image_and_Text_in_One_Embedding_Space_for_Medical_Image_Reporting,ViT,"CNN, ViT, CLIP, ResNet50"
+Wang_METransformer_Radiology_Report_Generation_by_Transformer_With_Multiple_Learnable_Expert_CVPR_2023_paper,ViT,"CNN, ViT"
+Zheng_2024_Phys._Med._Biol._69_045008,ViT,CNN
+bioengineering-11-00351,ViT,"CNN, ViT, Swin"
+fdgth-1-1535168,"Swin, ResNet50, CNN","CNN, ViT, Swin"
+fradi-04-1339612,ViT,CNN
+liu19a,ViT,CNN
+paper11,ViT,"CNN, ViT"
+s00330-024-11339-6,ViT,"CNN, ViT, CLIP"
+s10278-025-01422-9,ViT,"CNN, ViT"
+s11517-024-03197-7,ViT,CNN
+s41467-025-57426-0,ViT,"CNN, ViT, CLIP"
+s41746-025-01807-8,ViT,"CNN, CLIP"
+xu23a,"Swin, ResNet50","CNN, ViT, CLIP, Swin"

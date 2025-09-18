@@ -1,0 +1,19 @@
+digraph ablation_map {
+  rankdir=LR; nodesep=0.35; ranksep=0.45;
+  node [shape=box, style="rounded,filled", color=black, fillcolor=white, fontsize=12];
+
+  v18 [label="v18\nRAG + LLM\n(strict JSON)"];
+  v21 [label="v21\nCascade\n(LLM → filler)"];
+  v22 [label="v22\nEnsemble fusion\n(rule-based)"];
+
+  fx1 [label="Retrieval depth\n(top-k)"];
+  fx2 [label="Evidence mode\n(strict vs hybrid)"];
+  fx3 [label="Filler strength\n(alias coverage, NA rules)"];
+  fx4 [label="Resolution policy\n(field-wise precedence)"];
+
+  v18 -> v21 -> v22;
+  v18 -> fx1 [style=dotted, color=gray50];
+  v18 -> fx2 [style=dotted, color=gray50];
+  v21 -> fx3 [style=dotted, color=gray50];
+  v22 -> fx4 [style=dotted, color=gray50];
+}

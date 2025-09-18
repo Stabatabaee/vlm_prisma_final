@@ -1,0 +1,20 @@
+ 
+<json>{
+  "File": "A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation.pdf",
+  "Title": "A Multi-Modal Feature Fusion-Based Approach for Chest X-Ray Report Generation",
+  "Authors": "N/A",
+  "Modality": "X-Ray",
+  "Datasets": "IU X-Ray, NIH",
+  "Model Name": "N/A",
+  "Vision Encoder": "Vision Transformer",
+  "Language Decoder": "Word2Vec",
+  "Fusion Strategy": "Channel Attention Networks and Cross-Modal Information Fusion Modules"
+}</json> 
+<json>{
+  "File": "A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation.pdf",
+  "Title": "A Multi-Modal Feature Fusion-Based Approach for Chest X-Ray Report Generation",
+  "Authors": "N/A",
+  "Modality": "X-Ray",
+  "Datasets": "IU X-Ray, NIH",
+  "Model Name": "N/A",
+  "

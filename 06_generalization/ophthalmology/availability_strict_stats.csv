@@ -1,0 +1,16 @@
+field,n_present,n_total,p
+Modality,5,5,1.0
+Datasets (train),2,5,0.4
+Datasets (eval),2,5,0.4
+Paired,0,5,0.0
+VLM?,5,5,1.0
+Model,3,5,0.6
+Class,3,5,0.6
+Task,5,5,1.0
+Vision Enc,5,5,1.0
+Lang Dec,4,5,0.8
+Fusion,1,5,0.2
+Objectives,3,5,0.6
+Family,5,5,1.0
+RAG,3,5,0.6
+Metrics(primary),5,5,1.0

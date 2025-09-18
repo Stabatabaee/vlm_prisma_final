@@ -1,0 +1,14 @@
+Field,Present,Total,Percent
+Class,5,5,100.0
+Datasets (eval),5,5,100.0
+Datasets (train),5,5,100.0
+Family,5,5,100.0
+Fusion,5,5,100.0
+Lang Dec,5,5,100.0
+Modality,5,5,100.0
+Model,5,5,100.0
+Objectives,5,5,100.0
+RAG,5,5,100.0
+Task,5,5,100.0
+VLM?,5,5,100.0
+Vision Enc,5,5,100.0

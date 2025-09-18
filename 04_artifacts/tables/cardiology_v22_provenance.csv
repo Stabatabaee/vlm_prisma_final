@@ -1,0 +1,17 @@
+Field,Source,Count
+Class,missing,2
+Datasets (eval),v21,2
+Datasets (train),v21,2
+Family,v21,2
+Fusion,missing,2
+Lang Dec,v21,2
+Metrics,missing,2
+Metrics(primary),v21,2
+Modality,v21,2
+Model,missing,1
+Model,v21,1
+Objectives,v21,2
+RAG,v21,2
+Task,v21,2
+VLM?,v21,2
+Vision Enc,v21,2

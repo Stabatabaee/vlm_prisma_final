@@ -1,0 +1,5 @@
+Field,Unique (v18),Unique (v22),Δ (v22−v18)
+Model,12,18,6
+Vision Enc,4,5,1
+Lang Dec,7,9,2
+Objectives,4,3,-1

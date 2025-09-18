@@ -1,0 +1,392 @@
+7406
+
+IEEE JOURNAL OF BIOMEDICAL AND HEALTH INFORMATICS, VOL. 28, NO. 12, DECEMBER 2024
+
+Eye Gaze Guided Cross-Modal Alignment
+Network for Radiology Report Generation
+Peixi Peng , Wanshu Fan , Member, IEEE, Yue Shen , Wenfei Liu , Xin Yang , Member, IEEE,
+Qiang Zhang , Senior Member, IEEE, Xiaopeng Wei , Member, IEEE,
+and Dongsheng Zhou , Member, IEEE
+
+Abstract—The potential benefits of automatic radiology
+report generation, such as reducing misdiagnosis rates
+and enhancing clinical diagnosis efficiency, are significant. However, existing data-driven methods lack essential medical prior knowledge, which hampers their performance. Moreover, establishing global correspondences between radiology images and related reports, while achieving local alignments between images correlated with prior
+knowledge and text, remains a challenging task. To address these shortcomings, we introduce a novel Eye Gaze
+Guided Cross-modal Alignment Network (EGGCA-Net) for
+generating accurate medical reports. Our approach incorporates prior knowledge from radiologists’ Eye Gaze Region (EGR) to refine the fidelity and comprehensibility of report generation. Specifically, we design a Dual Fine-Grained
+Branch (DFGB) and a Multi-Task Branch (MTB) to collaboratively ensure the alignment of visual and textual semantics
+across multiple levels. To establish fine-grained alignment
+between EGR-related images and sentences, we introduce
+
+Received 26 December 2023; revised 3 May 2024, 10 June 2024,
+and 19 June 2024; accepted 26 June 2024. Date of publication 12
+July 2024; date of current version 6 December 2024
+
+---
+
+knowledge and text, remains a challenging task. To address these shortcomings, we introduce a novel Eye Gaze
+Guided Cross-modal Alignment Network (EGGCA-Net) for
+generating accurate medical reports. Our approach incorporates prior knowledge from radiologists’ Eye Gaze Region (EGR) to refine the fidelity and comprehensibility of report generation. Specifically, we design a Dual Fine-Grained
+Branch (DFGB) and a Multi-Task Branch (MTB) to collaboratively ensure the alignment of visual and textual semantics
+across multiple levels. To establish fine-grained alignment
+between EGR-related images and sentences, we introduce
+
+Received 26 December 2023; revised 3 May 2024, 10 June 2024,
+and 19 June 2024; accepted 26 June 2024. Date of publication 12
+July 2024; date of current version 6 December 2024. This work was
+supported in part by the National Key Research and Development Program of China under Grant 2021ZD0112400, in part by the National
+Natural Science Foundation of China under Grant U1908214, in part
+by the Program for Innovative Research Team in University of Liaoning
+Province under Grant LT2020015, in part by the Support Plan for the
+Key Field Innovation Team of Dalian under Grant 2021RT06, in part by
+the Support Plan for the Leading Innovation Team of Dalian University
+under Grant XLJ202010, Grant 111 Project, and Grant D23006, in part
+by the Program for the Liaoning Province Doctoral Research Starting
+Fund under Grant 2022-BS-336, in part by the Interdisciplinary project
+of Dalian University under Grant DLUXK-2023-QN-015, and in part
+by the Key Laboratory of Advanced Desig
+
+---
+
+n and Intelligent Computing
+(Dalian University), Ministry of Education under Grant ADIC2022003.
+(Corresponding authors: Wanshu Fan; Dongsheng Zhou.)
+Peixi Peng, Wanshu Fan, and Yue Shen are with the National and
+Local Joint Engineering Laboratory of Computer Aided Design, School
+of Software Engineering, Dalian University, Dalian 116622, China
+(e-mail: pengpeixi@s.dlu.edu.cn; fanwanshu@dlu.edu.cn; chenyue@
+s.dlu.edu.cn).
+Wenfei Liu is with the Department of Radiology, Affiliated Zhongshan
+Hospital of Dalian University, Dalian 750001, China (e-mail: liuwenfei830216@163.com).
+Xin Yang is with the School of Computer Science and Technology, Dalian University of Technology, Dalian 116024, China (e-mail:
+xinyang@dlut.edu.cn).
+Qiang Zhang, Xiaopeng Wei, and Dongsheng Zhou are with the National and Local Joint Engineering Laboratory of Computer Aided Design, School of Software Engineering, Dalian University, Dalian 116622,
+China, and also with the School of Computer Science and Technology, Dalian University of Technology, Dalian 116024, China (e-mail:
+zhangq@dlu.edu.cn; xpwei@dlut.edu.cn; zhouds@dlu.edu.cn).
+Digital Object Identifier 10.1109/JBHI.2024.3422168
+
+the Sentence Fine-grained Prototype Module (SFPM) within
+DFGB to capture cross-modal information at different levels. Additionally, to learn the alignment of EGR-related
+image topics, we introduce the Multi-task Feature Fusion
+Module (MFFM) within MTB to refine the encoder output
+information. Finally, a specifically designed label matching
+mechanism is designed to generate reports that are consistent with the anticipated disea
+
+---
+
+ Local Joint Engineering Laboratory of Computer Aided Design, School of Software Engineering, Dalian University, Dalian 116622,
+China, and also with the School of Computer Science and Technology, Dalian University of Technology, Dalian 116024, China (e-mail:
+zhangq@dlu.edu.cn; xpwei@dlut.edu.cn; zhouds@dlu.edu.cn).
+Digital Object Identifier 10.1109/JBHI.2024.3422168
+
+the Sentence Fine-grained Prototype Module (SFPM) within
+DFGB to capture cross-modal information at different levels. Additionally, to learn the alignment of EGR-related
+image topics, we introduce the Multi-task Feature Fusion
+Module (MFFM) within MTB to refine the encoder output
+information. Finally, a specifically designed label matching
+mechanism is designed to generate reports that are consistent with the anticipated disease states. The experimental
+outcomes indicate that the introduced methodology surpasses previous advanced techniques, yielding enhanced
+performance on two extensively used benchmark datasets:
+Open-i and MIMIC-CXR.
+Index Terms—Eye Gaze Region, multi-head scaled dotproduct, knowledge graph, radiology report generation,
+sentence fine-grained prototype.
+
+I. INTRODUCTION
+UTOMATIC generation of radiology reports, which seeks
+to create clinically precise and coherent narratives based
+on a single radiology image, has attracted tremendous attention
+and achieved remarkable advancement [1], [2], [3], [4], [5]. As a
+prospective intelligent assistant tool, it is capable of diminishing
+the demands on radiologists’ time and enhancing the provision
+of care to patients.
+The recent surge in the success of i
+
+---
+
+se states. The experimental
+outcomes indicate that the introduced methodology surpasses previous advanced techniques, yielding enhanced
+performance on two extensively used benchmark datasets:
+Open-i and MIMIC-CXR.
+Index Terms—Eye Gaze Region, multi-head scaled dotproduct, knowledge graph, radiology report generation,
+sentence fine-grained prototype.
+
+I. INTRODUCTION
+UTOMATIC generation of radiology reports, which seeks
+to create clinically precise and coherent narratives based
+on a single radiology image, has attracted tremendous attention
+and achieved remarkable advancement [1], [2], [3], [4], [5]. As a
+prospective intelligent assistant tool, it is capable of diminishing
+the demands on radiologists’ time and enhancing the provision
+of care to patients.
+The recent surge in the success of image captioning techniques
+has provided fresh perspectives for radiology report generation.
+Most current methodologies conform to the encoder-decoder
+framework used in image captioning [6], [7], [8], where a visionbased encoding module is responsible for feature derivation from
+pictorial inputs and a textual decoder converts these visual representations into corresponding textual descriptions. Creating
+radiological reports typically demands a comprehensive grasp
+of medical expertise, guaranteeing that the produced text maintains professional precision. Nevertheless, these approaches are
+tailored for succinctly describing visual scenes with short sentences, thus direct application to radiology images may not be
+effective. Therefore, several recent works emphasize enhancements for radiology 
+
+---
+
+mage captioning techniques
+has provided fresh perspectives for radiology report generation.
+Most current methodologies conform to the encoder-decoder
+framework used in image captioning [6], [7], [8], where a visionbased encoding module is responsible for feature derivation from
+pictorial inputs and a textual decoder converts these visual representations into corresponding textual descriptions. Creating
+radiological reports typically demands a comprehensive grasp
+of medical expertise, guaranteeing that the produced text maintains professional precision. Nevertheless, these approaches are
+tailored for succinctly describing visual scenes with short sentences, thus direct application to radiology images may not be
+effective. Therefore, several recent works emphasize enhancements for radiology report generation through the injected external information [4], [5], [9]. Liu et al. [4] introduce an attention
+mechanism that detects abnormal regions through multi-modal
+interactions between disease topics and a given image, enabling
+the alignment of abnormal regions with relevant disease themes.
+Wang et al. [5] combine prototype learning and prior knowledge,
+enabling the model to better capture cross-modal information
+
+A
+
+2168-2194 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 14:25:02 UTC from IEEE Xplore. Restrictions apply.
+
+PENG et al.: EYE GAZE GUIDED CROSS-MO
+
+---
+
+report generation through the injected external information [4], [5], [9]. Liu et al. [4] introduce an attention
+mechanism that detects abnormal regions through multi-modal
+interactions between disease topics and a given image, enabling
+the alignment of abnormal regions with relevant disease themes.
+Wang et al. [5] combine prototype learning and prior knowledge,
+enabling the model to better capture cross-modal information
+
+A
+
+2168-2194 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 14:25:02 UTC from IEEE Xplore. Restrictions apply.
+
+PENG et al.: EYE GAZE GUIDED CROSS-MODAL ALIGNMENT NETWORK FOR RADIOLOGY REPORT GENERATION
+
+7407
+
+Fig. 1. An example illustrating that our proposed method utilizes eye-tracking gaze data to construct prior knowledge that is more explainable than
+previous methods, facilitating the model to generate reports more accurately.
+
+between images and text, and provide more accurate radiology
+report generation. Despite these methods have demonstrated
+the advantages of employing prior knowledge, they are still restrained in extracting relevant information from global and local
+cross-modal features, which often results in the generated report
+lacking completeness and interpretability regarding abnormal
+area information.
+Inspired by radiologists’ working patterns, the clinical information of the radiologists’ EGR is essential to generate
+
+
+---
+
+DAL ALIGNMENT NETWORK FOR RADIOLOGY REPORT GENERATION
+
+7407
+
+Fig. 1. An example illustrating that our proposed method utilizes eye-tracking gaze data to construct prior knowledge that is more explainable than
+previous methods, facilitating the model to generate reports more accurately.
+
+between images and text, and provide more accurate radiology
+report generation. Despite these methods have demonstrated
+the advantages of employing prior knowledge, they are still restrained in extracting relevant information from global and local
+cross-modal features, which often results in the generated report
+lacking completeness and interpretability regarding abnormal
+area information.
+Inspired by radiologists’ working patterns, the clinical information of the radiologists’ EGR is essential to generate
+accurate diagnostic reports. However, existing methods lack
+consideration in using EGR-related clinical data as medical prior
+knowledge to guide radiology report generation. Recent studies suggest that enhancing radiologists’ visual search patterns
+while interpreting medical images holds significant promise
+for improving disease diagnosis [10], [11]. Wang et al. [12]
+propose an attention-aware augmentation method based on contrastive views of radiologists’ gaze, significantly improving the
+accuracy of knee osteoarthritis assessment. Similarly, Moinak
+et al. [13] develop a class activation augmentation method
+integrating radiologists’ gaze with the self-attention mechanism, thereby elevating the precision of the thoracic disease
+diagnoses. It can be seen that employing radiologists’ gaze
+pa
+
+---
+
+accurate diagnostic reports. However, existing methods lack
+consideration in using EGR-related clinical data as medical prior
+knowledge to guide radiology report generation. Recent studies suggest that enhancing radiologists’ visual search patterns
+while interpreting medical images holds significant promise
+for improving disease diagnosis [10], [11]. Wang et al. [12]
+propose an attention-aware augmentation method based on contrastive views of radiologists’ gaze, significantly improving the
+accuracy of knee osteoarthritis assessment. Similarly, Moinak
+et al. [13] develop a class activation augmentation method
+integrating radiologists’ gaze with the self-attention mechanism, thereby elevating the precision of the thoracic disease
+diagnoses. It can be seen that employing radiologists’ gaze
+patterns offers substantial potential for enhancing diagnostic
+decisions.
+Recently, an eye-tracking dataset called REFLACX [14] has
+been proposed for localizing abnormalities in chest X-rays,
+which can simulate the working pattern of radiologists when
+writing reports. As depicted in Fig. 1, by leveraging eye-tracking
+gaze data (ETD) and timestamped transcripts of reports (TRT)
+from this dataset, it becomes feasible to associate each sentence
+in the radiologist’s dictated report with its corresponding EGR,
+providing explainability for the report generation process. To
+effectively utilize the image-text alignment information regarding the EGR and further improve the multi-modal information
+screening capability of the model, it is essential to establish this
+unique EGR-related image-text alignm
+
+---
+
+tterns offers substantial potential for enhancing diagnostic
+decisions.
+Recently, an eye-tracking dataset called REFLACX [14] has
+been proposed for localizing abnormalities in chest X-rays,
+which can simulate the working pattern of radiologists when
+writing reports. As depicted in Fig. 1, by leveraging eye-tracking
+gaze data (ETD) and timestamped transcripts of reports (TRT)
+from this dataset, it becomes feasible to associate each sentence
+in the radiologist’s dictated report with its corresponding EGR,
+providing explainability for the report generation process. To
+effectively utilize the image-text alignment information regarding the EGR and further improve the multi-modal information
+screening capability of the model, it is essential to establish this
+unique EGR-related image-text alignment, which is often absent
+in existing report generation models.
+
+For the purpose of incorporating valuable medical prior
+knowledge to support diagnosis, we propose a framework termed
+EGGCA-Net for co-learning radiology image-report and EGRrelated image-text alignment. The EGR-correlated image-text
+matching is intricately integrated with the principal report generation through jointly trained DFGB and MTB. The two branches
+enhance one another reciprocally and progressively in a cooperative manner. Specifically, the DFGB includes a sentence
+fine-grained cross-modal prototype matrix generated from ETD
+and TRT, which enables the sentence fine-grained prototype
+module to force the decoder to focus on cross-modal information
+at different fine-grained levels simultaneously. Meanwhile, the
+MTB th
+
+---
+
+ent, which is often absent
+in existing report generation models.
+
+For the purpose of incorporating valuable medical prior
+knowledge to support diagnosis, we propose a framework termed
+EGGCA-Net for co-learning radiology image-report and EGRrelated image-text alignment. The EGR-correlated image-text
+matching is intricately integrated with the principal report generation through jointly trained DFGB and MTB. The two branches
+enhance one another reciprocally and progressively in a cooperative manner. Specifically, the DFGB includes a sentence
+fine-grained cross-modal prototype matrix generated from ETD
+and TRT, which enables the sentence fine-grained prototype
+module to force the decoder to focus on cross-modal information
+at different fine-grained levels simultaneously. Meanwhile, the
+MTB through the multi-task feature fusion module employs an
+image segmentation task to facilitate the attention map of the
+encoder more closely match the radiologist’s EGR and generates
+EGR-related features, which are then combined with the report
+topic information introduced by the multi-label classification
+task, thus reinforcing the corresponding image-text alignment.
+The main contributions of this study are threefold:
+r We propose an eye gaze guided cross-modal alignment
+network, of which two branches, DFGB and MTB, are
+designed to enhance the interaction between eye gaze regions and report knowledge. To our knowledge, this represents the inaugural effort to align EGR-related image-text
+with explicit constraints within the domain of automated
+radiology report generation.
+r We propose a sente
+
+---
+
+rough the multi-task feature fusion module employs an
+image segmentation task to facilitate the attention map of the
+encoder more closely match the radiologist’s EGR and generates
+EGR-related features, which are then combined with the report
+topic information introduced by the multi-label classification
+task, thus reinforcing the corresponding image-text alignment.
+The main contributions of this study are threefold:
+r We propose an eye gaze guided cross-modal alignment
+network, of which two branches, DFGB and MTB, are
+designed to enhance the interaction between eye gaze regions and report knowledge. To our knowledge, this represents the inaugural effort to align EGR-related image-text
+with explicit constraints within the domain of automated
+radiology report generation.
+r We propose a sentence fine-grained prototype module to
+explore multi-modal information that is overlooked at the
+report fine-grained level. Moreover, the multi-task feature
+fusion module is devised that combines features from
+both the multi-label classification and image segmentation
+tasks, thereby enabling the model to focus its attention
+on the alignment of EGR-related topics with multi-modal
+information.
+r Quantitative and qualitative evaluations conducted on two
+benchmark datasets affirm the superiority of our proposed
+method.
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 14:25:02 UTC from IEEE Xplore. Restrictions apply.
+
+7408
+
+IEEE JOURNAL OF BIOMEDICAL AND HEALTH INFORMATICS, VOL. 28, NO. 12, DECEMBER 2024
+
+II. RELATED WORK
+A. Radiology Report Generatio
+
+---
+
+nce fine-grained prototype module to
+explore multi-modal information that is overlooked at the
+report fine-grained level. Moreover, the multi-task feature
+fusion module is devised that combines features from
+both the multi-label classification and image segmentation
+tasks, thereby enabling the model to focus its attention
+on the alignment of EGR-related topics with multi-modal
+information.
+r Quantitative and qualitative evaluations conducted on two
+benchmark datasets affirm the superiority of our proposed
+method.
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 14:25:02 UTC from IEEE Xplore. Restrictions apply.
+
+7408
+
+IEEE JOURNAL OF BIOMEDICAL AND HEALTH INFORMATICS, VOL. 28, NO. 12, DECEMBER 2024
+
+II. RELATED WORK
+A. Radiology Report Generation
+Drawing on the noteworthy accomplishments of the encoderdecoder architecture in image captioning, recent research has
+increasingly adopted analogous structures for radiology report
+generation. Wang et al. [15] introduce a TieNet, a CNN-RNN
+architecture that integrates multi-level attention to accomplish
+image classification tasks as well as report generation tasks.
+Jong et al. [16] develop a BERT-based pre-training model that
+learns a unified contextualized vision-language representation
+for radiology report generation. Additionally, several other studies [4], [9], [17] have explored knowledge graphs to provide rich
+prior knowledge for the generation of reports. Zhang et al. [9]
+construct a knowledge graph encapsulating prior information
+on common diseases, utilizing attention mechanisms
+
+---
+
+n
+Drawing on the noteworthy accomplishments of the encoderdecoder architecture in image captioning, recent research has
+increasingly adopted analogous structures for radiology report
+generation. Wang et al. [15] introduce a TieNet, a CNN-RNN
+architecture that integrates multi-level attention to accomplish
+image classification tasks as well as report generation tasks.
+Jong et al. [16] develop a BERT-based pre-training model that
+learns a unified contextualized vision-language representation
+for radiology report generation. Additionally, several other studies [4], [9], [17] have explored knowledge graphs to provide rich
+prior knowledge for the generation of reports. Zhang et al. [9]
+construct a knowledge graph encapsulating prior information
+on common diseases, utilizing attention mechanisms and graph
+convolution to assist the generation of reports. Yan et al. [17]
+introduce an attributed abnormality knowledge graph, enabling
+the model to capture associations between abnormalities and
+their attributes. Considering the significance of cross-modal
+feature interactions, some studies [5], [18] propose the crossmodal prototype matrix to capture and store the interactions
+among image and text feature. This matrix is designed to distill
+shared information across modalities into single-model features
+through query and response operations. However, while most
+of the aforementioned methods are capable of learning crossmodal image-text alignment, they neglect the significance do
+not take full advantage of utilizing EGR to further enhance
+this cross-modal alignment. In response to the ab

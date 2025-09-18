@@ -1,0 +1,12 @@
+digraph prisma_lite {
+  rankdir=TB; nodesep=0.4; ranksep=0.5;
+  node [shape=box, style="rounded,filled", color=black, fillcolor=white, fontsize=12];
+
+  s1 [label="Records identified\n(PubMed, IEEE Xplore,\nWeb of Science, Scholar)"];
+  s2 [label="Deduplicated"];
+  s3 [label="Title/abstract screen"];
+  s4 [label="Full-text assessed"];
+  s5 [label="Included studies\n(n=84)"];
+
+  s1 -> s2 -> s3 -> s4 -> s5;
+}

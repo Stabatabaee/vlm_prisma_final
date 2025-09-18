@@ -1,0 +1,380 @@
+This WACV paper is the Open Access version, provided by the Computer Vision Foundation.
+Except for this watermark, it is identical to the accepted version;
+the final published version of the proceedings is available on IEEE Xplore.
+
+CXR-IRGen: An Integrated Vision and Language Model for the Generation of
+Clinically Accurate Chest X-Ray Image-Report Pairs
+Junjie Shentu, Noura Al Moubayed
+Durham University
+junjie.shentu, noura.al-moubayed@durham.ac.uk
+
+Abstract
+Chest X-Ray (CXR) images play a crucial role in clinical practice, providing vital support for diagnosis and treatment. Augmenting the CXR dataset with synthetically generated CXR images annotated with radiology reports can
+enhance the performance of deep learning models for various tasks. However, existing studies have primarily focused
+on generating unimodal data of either images or reports. In
+this study, we propose an integrated model, CXR-IRGen, designed specifically for generating CXR image-report pairs.
+Our model follows a modularized structure consisting of a
+vision module and a language module. Notably, we present
+a novel prompt design for the vision module by combining both text embedding and image embedding of a reference image. Additionally, we propose a new CXR report generation model as the language module, which effectively leverages a large language model and self-supervised
+learning strategy. Experimental results demonstrate that
+our new prompt is capable of improving the general quality
+(FID) and clinical efficacy (AUROC) of the generated images, with average improvements of 15.84% and 1.84%, respecti
+
+---
+
+sed
+on generating unimodal data of either images or reports. In
+this study, we propose an integrated model, CXR-IRGen, designed specifically for generating CXR image-report pairs.
+Our model follows a modularized structure consisting of a
+vision module and a language module. Notably, we present
+a novel prompt design for the vision module by combining both text embedding and image embedding of a reference image. Additionally, we propose a new CXR report generation model as the language module, which effectively leverages a large language model and self-supervised
+learning strategy. Experimental results demonstrate that
+our new prompt is capable of improving the general quality
+(FID) and clinical efficacy (AUROC) of the generated images, with average improvements of 15.84% and 1.84%, respectively. Moreover, the proposed CXR report generation
+model outperforms baseline models in terms of clinical efficacy (F1 score) and exhibits a high-level alignment of image
+and text, as the best F1 score of our model is 6.93% higher
+than the state-of-the-art CXR report generation model. Our
+code is available at https://github.com/junjie-shentu/CXRIRGen.
+
+1. Introduction
+Medical imaging plays a crucial role in medical practice
+by providing spatially resolved information about organs,
+tissues, and bones. The chest X-Ray (CXR) image is the
+most common medical image due to its cost-effectiveness
+and low radiation dose. Notably, on average, 238 CXR images are acquired per 1000 of the population annually in
+industrialized countries, with 129 million CXR images ac-
+
+quired in the United States in 2
+
+---
+
+vely. Moreover, the proposed CXR report generation
+model outperforms baseline models in terms of clinical efficacy (F1 score) and exhibits a high-level alignment of image
+and text, as the best F1 score of our model is 6.93% higher
+than the state-of-the-art CXR report generation model. Our
+code is available at https://github.com/junjie-shentu/CXRIRGen.
+
+1. Introduction
+Medical imaging plays a crucial role in medical practice
+by providing spatially resolved information about organs,
+tissues, and bones. The chest X-Ray (CXR) image is the
+most common medical image due to its cost-effectiveness
+and low radiation dose. Notably, on average, 238 CXR images are acquired per 1000 of the population annually in
+industrialized countries, with 129 million CXR images ac-
+
+quired in the United States in 2006 [4]. However, the large
+number of CXR images increases the workload and diagnosis time, posing a challenge for radiologists. Deep learning
+techniques provide huge support to this issue by demonstrating promising performance in AI-assisted medical applications, including segmentation and diagnosis [26, 38].
+Nonetheless, the availability of high-quality medical data
+is still limited due to privacy protocols and imbalanced
+data distribution, which further constrains the deployment
+of deep learning models in the medical field [19, 27, 40].
+For this purpose, deep generative models are utilized to
+augment the CXR image dataset. Previous studies have
+demonstrated the generation of CXR images using deep
+generative models, including generative adversarial networks (GANs) and diffusion models [2
+
+---
+
+006 [4]. However, the large
+number of CXR images increases the workload and diagnosis time, posing a challenge for radiologists. Deep learning
+techniques provide huge support to this issue by demonstrating promising performance in AI-assisted medical applications, including segmentation and diagnosis [26, 38].
+Nonetheless, the availability of high-quality medical data
+is still limited due to privacy protocols and imbalanced
+data distribution, which further constrains the deployment
+of deep learning models in the medical field [19, 27, 40].
+For this purpose, deep generative models are utilized to
+augment the CXR image dataset. Previous studies have
+demonstrated the generation of CXR images using deep
+generative models, including generative adversarial networks (GANs) and diffusion models [2, 3, 5, 6, 19, 21, 27,
+31,43]. CXR images are typically annotated with radiology
+reports detailing clinical observations made by radiologists,
+as depicted in Fig. 1. However, the majority of previous
+studies have primarily focused on generating high-quality
+CXR images, overlooking the importance of paired radiology reports. To the best of our knowledge, no study has
+yet addressed the feasibility of generating paired CXR images and radiology reports in a unified workflow. The generated CXR image-report pairs can significantly extend the
+applications of the augmented dataset and provide substantial support for training deep learning models that handle
+data from various modalities.
+This work introduces Chest X-Ray-Image Report Generation(CXR-IRGen), an integrated model designed to generate CX
+
+---
+
+, 3, 5, 6, 19, 21, 27,
+31,43]. CXR images are typically annotated with radiology
+reports detailing clinical observations made by radiologists,
+as depicted in Fig. 1. However, the majority of previous
+studies have primarily focused on generating high-quality
+CXR images, overlooking the importance of paired radiology reports. To the best of our knowledge, no study has
+yet addressed the feasibility of generating paired CXR images and radiology reports in a unified workflow. The generated CXR image-report pairs can significantly extend the
+applications of the augmented dataset and provide substantial support for training deep learning models that handle
+data from various modalities.
+This work introduces Chest X-Ray-Image Report Generation(CXR-IRGen), an integrated model designed to generate CXR image-report pairs. In detail, CXR-IRGen is modularized and consists of a vision module and a language module (Fig. 2), providing high flexibility in generating multimodal CXR image-report pairs or unimodal images or reports. Furthermore, we evaluate the performance of CXRIRGen on the test split of MIMIC-CXR dataset [18] and
+compare it with the baseline models concerning the general quality and clinical accuracy of the generated CXR image and report. Experimental results demonstrate that CXRIRGen surpasses the baseline models in generating highquality and clinically accurate CXR images and reports,
+
+5212
+
+while ensuring clinical alignment of the generated imagereport pairs. In summary, the contributions of our paper are
+as follows:
+1. We propose CXR-IRGen, an integrated model that gener
+
+---
+
+R image-report pairs. In detail, CXR-IRGen is modularized and consists of a vision module and a language module (Fig. 2), providing high flexibility in generating multimodal CXR image-report pairs or unimodal images or reports. Furthermore, we evaluate the performance of CXRIRGen on the test split of MIMIC-CXR dataset [18] and
+compare it with the baseline models concerning the general quality and clinical accuracy of the generated CXR image and report. Experimental results demonstrate that CXRIRGen surpasses the baseline models in generating highquality and clinically accurate CXR images and reports,
+
+5212
+
+while ensuring clinical alignment of the generated imagereport pairs. In summary, the contributions of our paper are
+as follows:
+1. We propose CXR-IRGen, an integrated model that generates CXR image-report pairs based on a modularized
+structure comprising a vision module and a language
+module. The model supports multiple generative tasks,
+including the generation of unimodal images, reports,
+and multimodal image-report pairs.
+2. We introduce a novel design of the prompt for the textto-image diffusion model in the vision module by combining text embedding with image embedding of a reference image. The new prompt enhances the generation quality across different backbones of the diffusion
+model.
+
+RoentGen that can generate high-fidelity and diverse CXR
+images with radiology-specific text prompts. Packhäuser
+et al. [33] verified the performance of LDM in generating high-quality CXR images, and found that the images
+generated by LDM outperform those by PGGAN in an abnormali
+
+---
+
+ates CXR image-report pairs based on a modularized
+structure comprising a vision module and a language
+module. The model supports multiple generative tasks,
+including the generation of unimodal images, reports,
+and multimodal image-report pairs.
+2. We introduce a novel design of the prompt for the textto-image diffusion model in the vision module by combining text embedding with image embedding of a reference image. The new prompt enhances the generation quality across different backbones of the diffusion
+model.
+
+RoentGen that can generate high-fidelity and diverse CXR
+images with radiology-specific text prompts. Packhäuser
+et al. [33] verified the performance of LDM in generating high-quality CXR images, and found that the images
+generated by LDM outperform those by PGGAN in an abnormality identification task. Weber et al. [43] proposed a
+cascaded LDM Cheff that can generate high-quality CXR
+images on a 1-megapixel scale. Based on the conclusions
+drawn by Chambon et al. [5,6], we adopt a pre-trained LDM
+as the backbone of the vision module, and attempt methods
+to further improve generation quality.
+
+2.2. Generation of CXR reports
+
+2.1. Generative models for CXR image generation
+
+Many prior studies treat the generation of CXR reports
+as an image captioning task that generates natural language
+text conditioned on image input [25]. Image captioning
+models adopt an image encoder to extract information from
+the input image and a text decoder to synthesize corresponding text conditioned on the extracted vision information [41, 44]. Jing et al. [17] leveraged a CNN-RNN structure
+
+---
+
+ty identification task. Weber et al. [43] proposed a
+cascaded LDM Cheff that can generate high-quality CXR
+images on a 1-megapixel scale. Based on the conclusions
+drawn by Chambon et al. [5,6], we adopt a pre-trained LDM
+as the backbone of the vision module, and attempt methods
+to further improve generation quality.
+
+2.2. Generation of CXR reports
+
+2.1. Generative models for CXR image generation
+
+Many prior studies treat the generation of CXR reports
+as an image captioning task that generates natural language
+text conditioned on image input [25]. Image captioning
+models adopt an image encoder to extract information from
+the input image and a text decoder to synthesize corresponding text conditioned on the extracted vision information [41, 44]. Jing et al. [17] leveraged a CNN-RNN structure with a hierarchical LSTM [22] being the text decoder
+to generate corresponding descriptions and localize subregions. Xue et al. [45] used a stacked LSTM decoder in
+the CNN-RNN structure. Liu et al. [25] introduced a hierarchical generation strategy for CNN-RNN-RNN architecture, which enables the model to look at different parts of
+the image and enhance captioning accuracy. Ma et al. [29]
+introduced the contrastive attention mechanism that can better represent the visual features of abnormal regions. Chen
+et al. [7] proposed the memory-driven Transformer that
+uses transformers as backbones of the encoder and decoder.
+Based on Meshed-Memory Transformer (M2 Trans) [9],
+Miura et al. [30] proposed two new rewards for capturing
+the factual completeness and report consistency, and optimized thes
+
+---
+
+ with a hierarchical LSTM [22] being the text decoder
+to generate corresponding descriptions and localize subregions. Xue et al. [45] used a stacked LSTM decoder in
+the CNN-RNN structure. Liu et al. [25] introduced a hierarchical generation strategy for CNN-RNN-RNN architecture, which enables the model to look at different parts of
+the image and enhance captioning accuracy. Ma et al. [29]
+introduced the contrastive attention mechanism that can better represent the visual features of abnormal regions. Chen
+et al. [7] proposed the memory-driven Transformer that
+uses transformers as backbones of the encoder and decoder.
+Based on Meshed-Memory Transformer (M2 Trans) [9],
+Miura et al. [30] proposed two new rewards for capturing
+the factual completeness and report consistency, and optimized these rewards via reinforcement learning.
+
+In recent years, Generative Adversarial Networks
+(GANs) are frequently adopted for generating CXR images,
+and promising results were attained [2, 3, 19, 21, 27, 31, 39,
+46]. Nonetheless, GANs exhibit problems including mode
+collapse and training instabilities, which increase training
+difficulties, and degrade generation quality. On the other
+hand, denoising diffusion models are proposed recently,
+which avoid these problems by adopting likelihood-based
+models and have been verified to outperform GANs in terms
+of the generation quality in general fields [10, 14, 32, 36].
+In the medical domain, Chambon et al. [5, 6] sought the
+feasibility of adapting a pre-trained latent Diffusion Model
+[37](LDM) for generating CXR images, finding that finetuning the U-N
+
+---
+
+e rewards via reinforcement learning.
+
+In recent years, Generative Adversarial Networks
+(GANs) are frequently adopted for generating CXR images,
+and promising results were attained [2, 3, 19, 21, 27, 31, 39,
+46]. Nonetheless, GANs exhibit problems including mode
+collapse and training instabilities, which increase training
+difficulties, and degrade generation quality. On the other
+hand, denoising diffusion models are proposed recently,
+which avoid these problems by adopting likelihood-based
+models and have been verified to outperform GANs in terms
+of the generation quality in general fields [10, 14, 32, 36].
+In the medical domain, Chambon et al. [5, 6] sought the
+feasibility of adapting a pre-trained latent Diffusion Model
+[37](LDM) for generating CXR images, finding that finetuning the U-Net component of the LDM enables the domain adaption of a pre-trained LDM. They presented the
+
+On the other hand, the presence of medically inconsistent
+and incoherent reports can still be frequently found in the
+reports generated by image captioning models [16]. Endo
+et al. [12] developed a retrieval-based CXR report generation method CXR-RePaiR that uses a Contrastive LanguageImage Pre-training (CLIP [35]) model to retrieve the report
+with the highest similarity score. CXR-RePaiR gets a higher
+F1 score than the baseline models, but much lower natural language metrics. Jeong et al. [16] also introduced a
+retrieval-based method X-REM that uses a novel image-text
+match score. Our work takes advantage of both the image
+captioning model and retrieval-based model, and applies a
+two-stage CXR re
+
+---
+
+et component of the LDM enables the domain adaption of a pre-trained LDM. They presented the
+
+On the other hand, the presence of medically inconsistent
+and incoherent reports can still be frequently found in the
+reports generated by image captioning models [16]. Endo
+et al. [12] developed a retrieval-based CXR report generation method CXR-RePaiR that uses a Contrastive LanguageImage Pre-training (CLIP [35]) model to retrieve the report
+with the highest similarity score. CXR-RePaiR gets a higher
+F1 score than the baseline models, but much lower natural language metrics. Jeong et al. [16] also introduced a
+retrieval-based method X-REM that uses a novel image-text
+match score. Our work takes advantage of both the image
+captioning model and retrieval-based model, and applies a
+two-stage CXR report generation method in the language
+module, which further improves generation quality compared to the aforementioned models.
+
+3. We propose a novel CXR report generation model as
+the language module, which utilizes a large language
+model and self-supervised learning strategy. The generated CXR reports exhibit promising performance in
+terms of both natural language metrics and clinical efficacy metrics.
+
+Figure 1. CXR image with radiology report
+
+2. Related Work
+
+5213
+
+3. Method
+The inference process of CXR-IRGen is depicted in
+Fig. 2. CXR-IRGen accomplishes a ”label-to-image & report” task, taking the label from the MIMIC-CXR dataset
+as input, which alleviates the difficulties and complexities
+of input preparation. The input labels are subsequently converted into simple text to leverag
+
+---
+
+port generation method in the language
+module, which further improves generation quality compared to the aforementioned models.
+
+3. We propose a novel CXR report generation model as
+the language module, which utilizes a large language
+model and self-supervised learning strategy. The generated CXR reports exhibit promising performance in
+terms of both natural language metrics and clinical efficacy metrics.
+
+Figure 1. CXR image with radiology report
+
+2. Related Work
+
+5213
+
+3. Method
+The inference process of CXR-IRGen is depicted in
+Fig. 2. CXR-IRGen accomplishes a ”label-to-image & report” task, taking the label from the MIMIC-CXR dataset
+as input, which alleviates the difficulties and complexities
+of input preparation. The input labels are subsequently converted into simple text to leverage the capabilities of the
+pre-trained CLIP text encoder. Simultaneously, a reference
+image with the same label is selected from the training set
+and encoded by a pre-trained CLIP image encoder. By combining the CLIP text and image embeddings, we obtain the
+conditional information for LDM sampling. The image embedding produced by the denoising backbone serves two
+purposes. First, it is decoded into the pixel space to create human-perceptible images. Additionally, it is projected
+into text embedding by a prior model for report generation.
+Consequently, we can obtain clinically accurate and aligned
+CXR image-report pairs by inputting simple labels.
+
+3.1. Text-to-image generation and optimization
+with the diffusion model
+The diffusion model is a probabilistic model specifically
+designed to des
+
+---
+
+e the capabilities of the
+pre-trained CLIP text encoder. Simultaneously, a reference
+image with the same label is selected from the training set
+and encoded by a pre-trained CLIP image encoder. By combining the CLIP text and image embeddings, we obtain the
+conditional information for LDM sampling. The image embedding produced by the denoising backbone serves two
+purposes. First, it is decoded into the pixel space to create human-perceptible images. Additionally, it is projected
+into text embedding by a prior model for report generation.
+Consequently, we can obtain clinically accurate and aligned
+CXR image-report pairs by inputting simple labels.
+
+3.1. Text-to-image generation and optimization
+with the diffusion model
+The diffusion model is a probabilistic model specifically
+designed to describe the distribution of an observed sample
+x0 ∼ q(x0 ) by learning the reversal of a gradual and multistep noising process, in which a Markov Chain of variables
+x1 . . . xT is produced and expressed as [14, 28]:
+  q\left ( x_t\mid x_{t-1} \right ) = \mathcal {N} \left ( x_t ; \sqrt {\alpha _t} x_{t-1}, \left (1-\alpha _t \right ) \mathbf {I} \right ) 
+
+(1)
+
+where α is a noise schedule parameter. Furthermore,
+LDM applies the diffusion model in a latent space through
+the VAE (variational autoencoder) [20], which compresses
+the high-dimensional images into low-dimensional latent
+space. The denoising process is performed by a denoising
+backbone conditioned on the input information. The optimizing objective of LDM is given by:
+  L_{LDM} = \mathbb {E}_{\mathcal {E}(x),y,\varepsilon \sim \mathc
+
+---
+
+al {N}(0,1),t} \left [ \left \| \varepsilon - \varepsilon _{\theta } \left ( z_t,t,c \right ) \right \|^2_2 \right ] 
+
+(2)
+
+where x represents an input image x ∈ RH×W ×3 in pixel
+space, and c denotes the conditioning information. E is the
+VAE encoder, t ∈ [1, T ] is a timestep, and zt is the image latent at timestep t of the Markov Chain. ε and εθ
+are standard Gaussian noise and predicted noise residue, respectively. In the vanilla LDM, the denoising backbone is a
+CNN-based U-Net consisting of down-sampling blocks and
+up-sampling blocks with skip connections between them.
+Besides, the feasibility of replacing the CNN layers with
+Vision Transformer (ViT) [11] was discussed, and a ViTbased backbone named U-ViT was proposed [1]. Following
+the conclusions drawn by Chambon et al. [5,6], we fine-tune
+the LDM on CXR images using a text-to-image approach to
+evaluate its domain-adapting performance. Both the U-Net
+
+and U-ViT backbones are involved and analyzed. To leverage the powerful capabilities of the pre-trained CLIP text
+encoder, we transform input labels into semi-structured text
+using the format of ”A chest X-Ray image with ..., without...,
+and unclear about ...”, where the three blanks are filled by
+pathology marked as 1.0, 0.0, and -1.0 in the label, respectively.
+In text-to-image generation [37], the text prompts are
+projected into text embedding, and we additionally combine the CLIP reference image embedding of an image that
+shares the same label as the input label with the CLIP text
+embedding. We hypothesize that the inclusion of an additional reference image embedding 

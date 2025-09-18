@@ -1,0 +1,1 @@
+| Shentu_CXR-IRGen_An_Integrated_Vision_and_Language_Model_for_the_Generation_WACV_2024_paper.pdf | Shentu Cxr-irgen An Integrated Vision And Language Model For The Generation Wacv 2024 Paper | Xue et al. | X-Ray | MIMIC-CXR | CXR-IRGen | ViT-B/16 | LSTM | Multimodal Encoder |

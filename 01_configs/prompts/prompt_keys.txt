@@ -1,0 +1,20 @@
+Authors
+Batch Size & Epochs
+Clinical Metrics
+Country / Institution
+Dataset(s)
+file
+Fusion Strategy
+Hardware
+Language Decoder
+Modality
+Model Name
+NLG Metrics
+Optimizer
+Pathology Focus
+Primary Task
+Prompt Style
+Title
+Validation Strategy
+Vision Encoder
+Year

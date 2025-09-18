@@ -1,0 +1,3 @@
+File,Class,Datasets (eval),Datasets (train),Family,Fusion,Lang Dec,Metrics,Metrics(primary),Modality,Model,Objectives,RAG,Task,VLM?,Vision Enc
+2505.04964v2,missing,v21,v21,v21,missing,v21,missing,v21,v21,v21,v21,v21,v21,v21,v21
+s41591-024-02959-y,missing,v21,v21,v21,missing,v21,missing,v21,v21,missing,v21,v21,v21,v21,v21

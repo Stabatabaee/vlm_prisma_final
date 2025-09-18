@@ -1,0 +1,18 @@
+digraph v21_pipeline {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", color=black, fillcolor=lightgray, fontsize=12];
+
+    subgraph cluster_v21 {
+        label="v21: Cascade Hybrid (LLM + Deterministic Filler)";
+        style="rounded,dashed";
+        color=purple;
+
+        retr [label="Multi-vector Retrieval", fillcolor=lightblue];
+        llm [label="LLM Extraction\n(strict evidence → JSON)", fillcolor=lightgoldenrod1];
+        filler [label="Deterministic Filler\n(regex-based aliasing,\nNA correction)", fillcolor=lightcyan];
+        merge [label="Cascade Merge\n(LLM + Filler output)", fillcolor=orange];
+        out [label="Balanced Structured Output\n(higher coverage, fewer blanks)", fillcolor=palegreen];
+
+        retr -> llm -> filler -> merge -> out;
+    }
+}

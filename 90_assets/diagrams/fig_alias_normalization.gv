@@ -1,0 +1,27 @@
+digraph alias_norm {
+  rankdir=LR; nodesep=0.35; ranksep=0.45;
+  node [shape=box, style="rounded,filled", color=black, fillcolor=white, fontsize=12];
+
+  n0 [label="Raw extracted values\n(per field)"];
+  n1 [label="Tokenization\n(split multi-valued, trim)"];
+  n2 [label="Alias dictionaries\n(regex → canonical)"];
+  n3 [label="De-dup & ordering\n(uniq_keep_order)"];
+  n4 [label="Canonical value\n(e.g., ViT, cross-attention,\ncontrastive, LLaVA)"];
+
+  n0 -> n1 -> n2 -> n3 -> n4;
+
+  subgraph cluster_examples {
+    label="Examples";
+    color=gray60; style="rounded,dashed";
+    e1 [label="Vanilla Image Transformer → ViT"];
+    e2 [label="ViTB/16 → ViT"];
+    e3 [label="cross-attention, conditioned → cross-attention"];
+    e4 [label="NSP → next sentence prediction"];
+    e5 [label="RL → reinforcement learning"];
+  }
+  n2 -> e1 [style=dotted, color=gray50];
+  n2 -> e2 [style=dotted, color=gray50];
+  n2 -> e3 [style=dotted, color=gray50];
+  n2 -> e4 [style=dotted, color=gray50];
+  n2 -> e5 [style=dotted, color=gray50];
+}

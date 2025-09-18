@@ -1,0 +1,1 @@
+| File | Title | Authors | Modality | Datasets | Model Name | Vision Encoder | Language Decoder | Fusion Strategy |

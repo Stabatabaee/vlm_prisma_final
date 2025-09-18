@@ -1,0 +1,6 @@
+File,Class,Datasets (eval),Datasets (train),Family,Fusion,Lang Dec,Metrics,Metrics(primary),Modality,Model,Objectives,RAG,Task,VLM?,Vision Enc
+2409.06644v2,missing,v21,v21,v21,missing,v21,missing,v21,v21,v21,v21,v21,v21,v21,v21
+4166169_preview,v21,missing,missing,v21,missing,missing,missing,v21,v21,missing,missing,missing,v21,v21,v21
+Specialist_vision-language_models_for_clinical_oph,missing,missing,missing,v21,missing,v21,missing,v21,v21,v21,v21,v21,v21,v21,v21
+s41551-023-01045-x,v21,v21,v21,v21,v21,v21,missing,v21,v21,missing,missing,v21,v21,v21,v21
+s41598-025-88948-8,v21,missing,missing,v21,missing,v21,missing,v21,v21,v21,v21,missing,v21,v21,v21

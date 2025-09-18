@@ -1,0 +1,5 @@
+Class,Count,Percent
+classification,2,40.0
+retrieval; classification,1,20.0
+detection,1,20.0
+report-generation; triage; classification,1,20.0

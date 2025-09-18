@@ -1,0 +1,22 @@
+{
+  "Title": "On the first page of the PDF, locate the main heading in title\u2010case, centered at the top in the largest font, and return it exactly as it appears.",
+  "Year": "From the publication details, what year did this study appear?",
+  "Authors": "List all authors in order as they appear on the paper (e.g., FirstName LastName, FirstName LastName\u2026).",
+  "Country / Institution": "Identify the corresponding author\u2019s primary affiliation and country.",
+  "Modality": "Which imaging modality or modalities does this study use (e.g., chest X-ray, CT, MRI)?",
+  "Dataset(s)": "List each dataset name and its source (e.g., MIMIC-CXR via PhysioNet, IU-XRay from Kaggle).",
+  "Primary Task": "What is the study\u2019s main task (e.g., report generation, impression summarization, disease classification)?",
+  "Pathology Focus": "Which condition(s) are targeted (e.g., pulmonary embolism, pneumothorax, general findings)?",
+  "Model Name": "Which Vision\u2013Language Model(s) and version(s) did the authors use (e.g., GPT-4 Turbo Vision, unsloth/Llama-3.2-11B-Vision-Instruct, BLIP-2)?",
+  "Vision Encoder": "Which vision encoder architecture and pretrained weights are used (e.g., ViT-Base, Swin-Transformer)?",
+  "Language Decoder": "Which language model backbone and version does the study fine-tune (e.g., GPT-2, Llama-3.2)?",
+  "Fusion Strategy": "How are image and text fused\u2014early fusion (pseudo-tokens), late fusion (head), or hybrid cross-attention?",
+  "Pretraining Data": "What corpora or datasets were used to pretrain the model before fine-tuning on this task?",
+  "Prompt Style": "What prompt format is used\u2014caption-style, chat-style, or structured-instruction?",
+  "Optimizer": "Which optimizer and hyperparameters were used (e.g., AdamW with lr=5e-5, weight decay)?",
+  "Batch Size & Epochs": "What batch size, gradient-accumulation steps, and number of epochs were used?",
+  "Hardware": "Which GPU type/count and precision (fp16, bf16) were employed during training?",
+  "Validation Strategy": "What train/validation/test split or cross-validation procedure was used?",
+  "NLG Metrics": "Which natural-language metrics were reported (e.g., BLEU, ROUGE-L, METEOR, BERTScore)?",
+  "Clinical Metrics": "Which clinical performance metrics were used (e.g., AUC, sensitivity, specificity, F1)?"
+}

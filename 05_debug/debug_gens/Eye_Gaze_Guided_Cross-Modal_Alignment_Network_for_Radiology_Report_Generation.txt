@@ -1,0 +1,16 @@
+ 
+<json>{
+  "File": "Eye_Gaze_Guided_Cross-Modal_Alignment_Network_for_Radiology_Report_Generation.pdf",
+  "Title": "Eye Gaze Guided Cross-Modal Alignment Network for Radiology Report Generation",
+  "Authors": "Xinyang Zhang, Qiang Zhang, Xiaopeng Wei, Dongsheng Zhou",
+  "Modality": "X-ray",
+  "Datasets": "Open-I, MIMIC-CXR",
+  "Model Name": "Eye Gaze Guided Cross-Modal Alignment Network",
+  "Vision Encoder": "N/A",
+  "Language Decoder": "Transformer",
+  "Fusion Strategy": "Multi-Task Feature Fusion"
+}</json> 
+<json>{
+  "File": "Eye_Gaze_Guided_Cross-Modal_Alignment_Network_for_Radiology_Report_Generation.pdf",
+  "Title": "Eye Gaze Guided Cross-Modal Alignment Network for Radiology Report Generation",
+  "Authors": "Xinyang Zhang, Qiang Zhang, Xiaop

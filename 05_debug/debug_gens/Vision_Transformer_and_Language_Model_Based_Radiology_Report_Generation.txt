@@ -1,0 +1,19 @@
+ 
+<json>{
+  "File": "Vision_Transformer_and_Language_Model_Based_Radiology_Report_Generation.pdf",
+  "Title": "Vision Transformer and Language Model Based Radiology Report Generation",
+  "Authors": "Mashood M. Mohsan, Norah Saleh Alghamdi",
+  "Modality": "X-ray",
+  "Datasets": "Indiana University Chest X-rays",
+  "Model Name": "ViT-BERT",
+  "Vision Encoder": "Vision Transformer",
+  "Language Decoder": "BERT",
+  "Fusion Strategy": "Encoder-Decoder"
+}</json> 
+<json>{
+  "File": "Vision_Transformer_and_Language_Model_Based_Radiology_Report_Generation.pdf",
+  "Title": "Vision Transformer and Language Model Based Radiology Report Generation",
+  "Authors": "Mashood M. Mohsan, Norah Saleh Alghamdi",
+  "Modality": "X-ray",
+  "Datasets": "Indiana University Chest X-rays",
+  "Model Name": "ViT

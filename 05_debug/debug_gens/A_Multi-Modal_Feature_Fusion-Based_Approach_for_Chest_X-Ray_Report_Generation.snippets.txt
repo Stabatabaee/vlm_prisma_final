@@ -1,0 +1,423 @@
+2024 11th International Conference on Wireless Networks and Mobile Communications (WINCOM) | 979-8-3503-7786-6/24/$31.00 ©2024 IEEE | DOI: 10.1109/WINCOM62286.2024.10657835
+
+A multi-modal feature fusion-based approach for
+Chest X-ray Report Generation
+Fatima CHEDDI
+Smart Systems Laboratory
+ENSIAS, Mohammed V University in Rabat,
+Rabat, Morocco
+Fatima.chedi@gmail.com
+
+Ahmed HABBANI
+Smart Systems Laboratory
+ENSIAS, Mohammed V University in Rabat,
+Rabat, Morocco
+IBISC Laboratory
+ParisSaclay University
+Evry University, France
+CNRS
+Bordeaux INP
+LaBRI, Univ. Bordeaux, Talence, France
+ahmed.habbani@ensias.um5.ac.ma
+
+Abstract— Given the growing dependence on medical imaging,
+there is a significant requirement for automated report
+generation, which can save the radiologist's time and reduce the
+possibility of diagnostic errors. Existing approaches face various
+difficulties, including insufficient professionalism, a variety of
+diseases, and fluency in reports. These problems are the result of
+the use of an encoder-decoder deep learning architecture to
+establish a uni-directional image-to-report relationship and
+neglect the bidirectional connections between images and reports,
+making it challenging to establish the intrinsic medical
+correlations between them. To this end, we propose a novel
+approach for chest radiology report generation based on multimodal feature fusion. Our method uses textual and visual features
+that are taken from medical chest X-ray images and their real
+reports. Firstly, we use a vision transformer to extract visual
+features from medical images; on the other han
+
+---
+
+sibility of diagnostic errors. Existing approaches face various
+difficulties, including insufficient professionalism, a variety of
+diseases, and fluency in reports. These problems are the result of
+the use of an encoder-decoder deep learning architecture to
+establish a uni-directional image-to-report relationship and
+neglect the bidirectional connections between images and reports,
+making it challenging to establish the intrinsic medical
+correlations between them. To this end, we propose a novel
+approach for chest radiology report generation based on multimodal feature fusion. Our method uses textual and visual features
+that are taken from medical chest X-ray images and their real
+reports. Firstly, we use a vision transformer to extract visual
+features from medical images; on the other hand, we use the
+Word2Vec model to extract semantic features from textual
+medical reports. Additionally, we employ advanced techniques
+such as channel attention networks and cross-modal information
+fusion modules to enhance the quality and coherence of the
+generated reports. We have evaluated our proposed approach on
+two publicly available chest X-ray datasets, IU X-ray and NIH.
+The results show that our approach outperforms state-of-the-art
+methods. Particularly in the ROUGE metric and BLEU metric.
+Keywords—Chest X-ray report generation, Multi-modal learning,
+medical image, Deep learning, Transformers, Medical report
+
+I.
+
+INTRODUCTION
+
+In recent years, with the development of artificial
+intelligence in medical practices, automatic report generation
+based on deep learning has become a popular
+
+---
+
+d, we use the
+Word2Vec model to extract semantic features from textual
+medical reports. Additionally, we employ advanced techniques
+such as channel attention networks and cross-modal information
+fusion modules to enhance the quality and coherence of the
+generated reports. We have evaluated our proposed approach on
+two publicly available chest X-ray datasets, IU X-ray and NIH.
+The results show that our approach outperforms state-of-the-art
+methods. Particularly in the ROUGE metric and BLEU metric.
+Keywords—Chest X-ray report generation, Multi-modal learning,
+medical image, Deep learning, Transformers, Medical report
+
+I.
+
+INTRODUCTION
+
+In recent years, with the development of artificial
+intelligence in medical practices, automatic report generation
+based on deep learning has become a popular research topic.
+
+979-8-3503-7786-6/24/$31.00©2024 IEEE
+
+Hammadi Nait-Charif
+National Center for Computer Animation
+Bournemouth University
+United Kingdom
+hncharif@bournemouth.ac.uk
+
+Chest X-ray (CXR) radiographic imaging plays a provital role
+in the early diagnosis of various thoracic diseases [1].
+Radiologists carefully examine each section of a chest X-ray
+image, documenting in written reports any findings and results.
+These reports summarize the diagnostic analysis and
+conclusions derived from the radiological image and act as a
+standard method of communication between radiologists and
+doctors [2]. Furthermore, manual interpretation is timeconsuming and requires a significant portion of a specialist's
+time and effort [3]. This emphasizes the need for automated
+methods to assist radiolog
+
+---
+
+ research topic.
+
+979-8-3503-7786-6/24/$31.00©2024 IEEE
+
+Hammadi Nait-Charif
+National Center for Computer Animation
+Bournemouth University
+United Kingdom
+hncharif@bournemouth.ac.uk
+
+Chest X-ray (CXR) radiographic imaging plays a provital role
+in the early diagnosis of various thoracic diseases [1].
+Radiologists carefully examine each section of a chest X-ray
+image, documenting in written reports any findings and results.
+These reports summarize the diagnostic analysis and
+conclusions derived from the radiological image and act as a
+standard method of communication between radiologists and
+doctors [2]. Furthermore, manual interpretation is timeconsuming and requires a significant portion of a specialist's
+time and effort [3]. This emphasizes the need for automated
+methods to assist radiologists in their work. Deep learningbased automated diagnostic report generation can reduce the
+time required to write reports and minimize the possibility of
+errors in diagnosis [4], thus improving work efficiency. In
+recent years, advanced searches in deep learning and natural
+language processing (NLP) have paved the way for automated
+CXR report generation. Current methods typically use an
+encoder-decoder model [5] [6], where the encoder utilizes
+convolutional neural networks (CNN) to extract visual features
+from the radiology image, while the decoder employs recurrent
+neural networks (RNN) to produce text descriptions for the
+reports.
+To improve the models mentioned above, the researchers
+applied a transformer [7] [8] to the task of medical report
+generation. In comparison to current repor
+
+---
+
+ists in their work. Deep learningbased automated diagnostic report generation can reduce the
+time required to write reports and minimize the possibility of
+errors in diagnosis [4], thus improving work efficiency. In
+recent years, advanced searches in deep learning and natural
+language processing (NLP) have paved the way for automated
+CXR report generation. Current methods typically use an
+encoder-decoder model [5] [6], where the encoder utilizes
+convolutional neural networks (CNN) to extract visual features
+from the radiology image, while the decoder employs recurrent
+neural networks (RNN) to produce text descriptions for the
+reports.
+To improve the models mentioned above, the researchers
+applied a transformer [7] [8] to the task of medical report
+generation. In comparison to current report generation
+approaches, the transformers model exhibits enhanced feature
+learning capabilities, as presented in these works [9] and [10],
+as they can weigh the relationships between each node in the
+input data and are adept at capturing long-range semantic
+associations. Also, they present higher interaction with
+multimodal data due to the multi-head attention module.
+Furthermore, transformers use self-attention mechanisms to
+improve parallelization and comprehension of word links in a
+series of words. Transformers provide faster and more efficient
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 01:53:33 UTC from IEEE Xplore. Restrictions apply.
+
+learning because they do not rely on recurrence and add more
+context to the network compared to RNN
+
+---
+
+t generation
+approaches, the transformers model exhibits enhanced feature
+learning capabilities, as presented in these works [9] and [10],
+as they can weigh the relationships between each node in the
+input data and are adept at capturing long-range semantic
+associations. Also, they present higher interaction with
+multimodal data due to the multi-head attention module.
+Furthermore, transformers use self-attention mechanisms to
+improve parallelization and comprehension of word links in a
+series of words. Transformers provide faster and more efficient
+
+Authorized licensed use limited to: STATE UNIV NY BINGHAMTON. Downloaded on July 29,2025 at 01:53:33 UTC from IEEE Xplore. Restrictions apply.
+
+learning because they do not rely on recurrence and add more
+context to the network compared to RNNs.
+The existing research shows that the methods based on the
+improved transformer models and global visual feature have
+achieved excellent performance in the task of automatic report
+generation, but at the same time, these methods still have some
+limitations when it comes to identifying and characterizing rare
+and complex diseases due to a lack of in-depth understanding of
+medical terminology, anatomical structures, or lesion
+characteristics. Furthermore, the model's description of diseases
+lacks professionalism due to its limited knowledge of medical
+terms, anatomical structures, and lesion characteristics,
+producing text that is difficult to understand or not fluent, which
+negatively impacts the report's usability.
+To address these limitations, we propose a novel method for
+CXR report ge
+
+---
+
+s.
+The existing research shows that the methods based on the
+improved transformer models and global visual feature have
+achieved excellent performance in the task of automatic report
+generation, but at the same time, these methods still have some
+limitations when it comes to identifying and characterizing rare
+and complex diseases due to a lack of in-depth understanding of
+medical terminology, anatomical structures, or lesion
+characteristics. Furthermore, the model's description of diseases
+lacks professionalism due to its limited knowledge of medical
+terms, anatomical structures, and lesion characteristics,
+producing text that is difficult to understand or not fluent, which
+negatively impacts the report's usability.
+To address these limitations, we propose a novel method for
+CXR report generation based on multi-modal feature fusion
+techniques, termed MM-CXRG. Our approach integrates both
+visual and textual modalities using deep learning algorithms,
+including convolutional neural networks (CNNs) and improved
+transformers, aiming to improve the quality of automated
+medical report generation. Our approach focuses on solving the
+problems of disease recognition accuracy, disease description
+professionalism, and report text fluency, thereby decreasing the
+burden for clinicians in the face of report writing and assisting
+them in achieving accurate diagnoses.
+II.
+
+RELATED WORK
+
+Over several years, Convolutional Neural Networks (CNNs)
+have played a pivotal role in medical image analysis, relying on
+a straightforward and implementable architecture [11] and [12].
+In contrast, while t
+
+---
+
+neration based on multi-modal feature fusion
+techniques, termed MM-CXRG. Our approach integrates both
+visual and textual modalities using deep learning algorithms,
+including convolutional neural networks (CNNs) and improved
+transformers, aiming to improve the quality of automated
+medical report generation. Our approach focuses on solving the
+problems of disease recognition accuracy, disease description
+professionalism, and report text fluency, thereby decreasing the
+burden for clinicians in the face of report writing and assisting
+them in achieving accurate diagnoses.
+II.
+
+RELATED WORK
+
+Over several years, Convolutional Neural Networks (CNNs)
+have played a pivotal role in medical image analysis, relying on
+a straightforward and implementable architecture [11] and [12].
+In contrast, while these studies [5] and [13] used the CNN-RNN
+framework, more recent works have adopted the power
+performance of the Transformer [8], which employs the
+mechanism named self-attention [34].
+On the other hand, several searches have explored
+reinforcement learning and contrast learning techniques to
+enhance models' report generation capability. For example, [13]
+presented a framework that compares input images with normal
+ones to extract contrast information, improving the
+characterization of abnormal regions. In [14], Wang et al.
+proposed a self-reinforcement method where image-report pairs
+are fed into an image-text matching branch, providing feedback
+on alignment to enhance report accuracy. Kaur [15] proposed a
+method integrating attention and reinforcement learning
+strategies to improve the 
+
+---
+
+hese studies [5] and [13] used the CNN-RNN
+framework, more recent works have adopted the power
+performance of the Transformer [8], which employs the
+mechanism named self-attention [34].
+On the other hand, several searches have explored
+reinforcement learning and contrast learning techniques to
+enhance models' report generation capability. For example, [13]
+presented a framework that compares input images with normal
+ones to extract contrast information, improving the
+characterization of abnormal regions. In [14], Wang et al.
+proposed a self-reinforcement method where image-report pairs
+are fed into an image-text matching branch, providing feedback
+on alignment to enhance report accuracy. Kaur [15] proposed a
+method integrating attention and reinforcement learning
+strategies to improve the relevance of the generated report text
+to medical images. Also, Li et al. proposed an HRGR model
+[16] that uses reinforcement learning to create radiology reports
+by hand-assembling a manually extracted template database.
+However, these approaches do have some challenges, including
+the need for large amounts of labeled data to train efficiently.
+Secondly, the complexity of RL models increases the time
+required for training. Also, the possibility of overfitting and
+
+integrating RL with attention mechanisms or contrast learning
+adds further complexity and limits the power of the system to
+interpret complex cases.
+In order to increase the quality of the radiology reports that
+are generated, other approaches are proposed that incorporate
+additional past knowledge into the model. For example, S
+
+---
+
+relevance of the generated report text
+to medical images. Also, Li et al. proposed an HRGR model
+[16] that uses reinforcement learning to create radiology reports
+by hand-assembling a manually extracted template database.
+However, these approaches do have some challenges, including
+the need for large amounts of labeled data to train efficiently.
+Secondly, the complexity of RL models increases the time
+required for training. Also, the possibility of overfitting and
+
+integrating RL with attention mechanisms or contrast learning
+adds further complexity and limits the power of the system to
+interpret complex cases.
+In order to increase the quality of the radiology reports that
+are generated, other approaches are proposed that incorporate
+additional past knowledge into the model. For example, Shuxin
+Yang introduced a method named M2KT [17], which combines
+two separate modules. Learned knowledge base and multimodal alignment, another approach introduced by Li et al.,
+named Knowledge-driven Encode, Retrieve Paraphrase
+(KERP) [18], which splits medical reports into two parts: the
+learning of explicit medical abnormality graphs and following
+natural language modeling. This method uses three modules:
+Encoder, Retrieve, and Paraphrase, which edit the templates
+based on particular cases. Also, another method is proposed by
+Liu et al. named the Posterior-and-Prior Knowledge Exploringand-Distilling approach (PPKED)[19]. The model utilizes
+embeddings representing common abnormalities observed in
+training set reports, encoded reports with similar visual features
+to the current CXR, and kno
+
+---
+
+huxin
+Yang introduced a method named M2KT [17], which combines
+two separate modules. Learned knowledge base and multimodal alignment, another approach introduced by Li et al.,
+named Knowledge-driven Encode, Retrieve Paraphrase
+(KERP) [18], which splits medical reports into two parts: the
+learning of explicit medical abnormality graphs and following
+natural language modeling. This method uses three modules:
+Encoder, Retrieve, and Paraphrase, which edit the templates
+based on particular cases. Also, another method is proposed by
+Liu et al. named the Posterior-and-Prior Knowledge Exploringand-Distilling approach (PPKED)[19]. The model utilizes
+embeddings representing common abnormalities observed in
+training set reports, encoded reports with similar visual features
+to the current CXR, and knowledge graph embeddings
+reflecting prevalent abnormalities in the training data. In the
+same field, another approach named R2Gen, proposed by Chen
+et al. [20], incorporates a relational memory-driven' mechanism
+within the decoder to grasp the sequencing of words or
+sentences. followed by the development of the 'Cross-modal
+Memory Network' (CMN). Recently, a novel mechanism has
+been presented using the multi-modal fusion data utilized in
+these works [21], [22], and [23]. Its objective is to improve the
+interaction between different modalities of data to improve the
+quality and accuracy of the generated reports and to reduce
+errors compared to strategies that rely on one type of data. By
+incorporating multiple modalities, the model can capture a more
+comprehensive understanding of the medica
+
+---
+
+wledge graph embeddings
+reflecting prevalent abnormalities in the training data. In the
+same field, another approach named R2Gen, proposed by Chen
+et al. [20], incorporates a relational memory-driven' mechanism
+within the decoder to grasp the sequencing of words or
+sentences. followed by the development of the 'Cross-modal
+Memory Network' (CMN). Recently, a novel mechanism has
+been presented using the multi-modal fusion data utilized in
+these works [21], [22], and [23]. Its objective is to improve the
+interaction between different modalities of data to improve the
+quality and accuracy of the generated reports and to reduce
+errors compared to strategies that rely on one type of data. By
+incorporating multiple modalities, the model can capture a more
+comprehensive understanding of the medical image, including
+anatomical structures, lesion characteristics, and associated
+clinical findings.
+However, these works also come with some limitations. The
+models might be limited to specific fields, and they may need
+significant modifications for new applications. In addition, the
+quality of the training data is crucial for ensuring the accuracy
+of reports. Any inaccuracies or biases in a data source, whether
+it be images or medical records, can result in reports that are not
+reliable across all references.
+III.
+
+METHODOLOGY
+
+A. Architecture overview
+The proposed method for image chest X-ray report
+
+
+---
+
+l image, including
+anatomical structures, lesion characteristics, and associated
+clinical findings.
+However, these works also come with some limitations. The
+models might be limited to specific fields, and they may need
+significant modifications for new applications. In addition, the
+quality of the training data is crucial for ensuring the accuracy
+of reports. Any inaccuracies or biases in a data source, whether
+it be images or medical records, can result in reports that are not
+reliable across all references.
+III.
+
+METHODOLOGY
+
+A. Architecture overview
+The proposed method for image chest X-ray report

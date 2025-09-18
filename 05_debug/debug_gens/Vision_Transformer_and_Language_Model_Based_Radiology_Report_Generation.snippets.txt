@@ -1,0 +1,416 @@
+Received 6 December 2022, accepted 14 December 2022, date of publication 27 December 2022, date of current version 6 January 2023.
+Digital Object Identifier 10.1109/ACCESS.2022.3232719
+
+Vision Transformer and Language Model Based
+Radiology Report Generation
+MASHOOD MOHAMMAD MOHSAN 1 , MUHAMMAD USMAN AKRAM 1 , (Senior Member, IEEE),
+GHULAM RASOOL 2 , (Senior Member, IEEE), NORAH SALEH ALGHAMDI 3 ,
+MUHAMMAD ABDULLAH AAMER BAQAI4 , AND MUHAMMAD ABBAS1
+1 Department of Computer and Software Engineering, National University of Sciences and Technology, Islamabad 44000, Pakistan
+2 Machine Learning Department, Moffitt Cancer Center, Tampa, FL 33612, USA
+3 Department of Computer Sciences, College of Computer and Information Sciences, Princess Nourah Bint Abdulrahman University, Riyadh 11671, Saudi Arabia
+4 College of Engineering, Michigan State University, East Lansing, MI 48824, USA
+
+Corresponding authors: Mashood M. Mohsan (mashood3624@gmail.com) and Norah Saleh Alghamdi (nosalghamdi@pnu.edu.sa)
+This work was supported by the Princess Nourah bint Abdulrahman University Researchers Supporting under Project PNURSP2023R04,
+Princess Nourah bint Abdulrahman University, Riyadh, Saudi Arabia.
+
+ABSTRACT Recent advancements in transformers exploited computer vision problems which results in
+state-of-the-art models. Transformer-based models in various sequence prediction tasks such as language
+translation, sentiment classification, and caption generation have shown remarkable performance. Auto
+report generation scenarios in medical imaging through caption generation models is one of the appl
+
+---
+
+rabia
+4 College of Engineering, Michigan State University, East Lansing, MI 48824, USA
+
+Corresponding authors: Mashood M. Mohsan (mashood3624@gmail.com) and Norah Saleh Alghamdi (nosalghamdi@pnu.edu.sa)
+This work was supported by the Princess Nourah bint Abdulrahman University Researchers Supporting under Project PNURSP2023R04,
+Princess Nourah bint Abdulrahman University, Riyadh, Saudi Arabia.
+
+ABSTRACT Recent advancements in transformers exploited computer vision problems which results in
+state-of-the-art models. Transformer-based models in various sequence prediction tasks such as language
+translation, sentiment classification, and caption generation have shown remarkable performance. Auto
+report generation scenarios in medical imaging through caption generation models is one of the applied
+scenarios for language models and have strong social impact. In these models, convolution neural networks
+have been used as encoder to gain spatial information and recurrent neural networks are used as decoder
+to generate caption or medical report. However, using transformer architecture as encoder and decoder
+in caption or report writing task is still unexplored. In this research, we explored the effect of losing
+spatial biasness information in encoder by using pre-trained vanilla image transformer architecture and
+combine it with different pre-trained language transformers as decoder. In order to evaluate the proposed
+methodology, the Indiana University Chest X-Rays dataset is used where ablation study is also conducted
+with respect to different evaluations. The comparative analysis 
+
+---
+
+ied
+scenarios for language models and have strong social impact. In these models, convolution neural networks
+have been used as encoder to gain spatial information and recurrent neural networks are used as decoder
+to generate caption or medical report. However, using transformer architecture as encoder and decoder
+in caption or report writing task is still unexplored. In this research, we explored the effect of losing
+spatial biasness information in encoder by using pre-trained vanilla image transformer architecture and
+combine it with different pre-trained language transformers as decoder. In order to evaluate the proposed
+methodology, the Indiana University Chest X-Rays dataset is used where ablation study is also conducted
+with respect to different evaluations. The comparative analysis shows that the proposed methodology
+has represented remarkable performance when compared with existing techniques in terms of different
+performance parameters.
+INDEX TERMS Vision transformers, language models, radiology report, decoder.
+I. INTRODUCTION
+
+Diseases that target the chest are particularly dangerous
+because of their impact on the lungs. Every year, millions
+of people face being diagnosed with a chest disease [1].
+As the lungs are important organs in the human body, any
+damage caused to them could have life threatening implications. On average, 58000 deaths occur only due to pneumonia
+[2]. Chest x-rays are the primary practice to diagnose these
+diseases. The radiologist conducts a thorough visual of the
+x-ray image and writes a report of the patient’s condition. This
+implies the 
+
+---
+
+shows that the proposed methodology
+has represented remarkable performance when compared with existing techniques in terms of different
+performance parameters.
+INDEX TERMS Vision transformers, language models, radiology report, decoder.
+I. INTRODUCTION
+
+Diseases that target the chest are particularly dangerous
+because of their impact on the lungs. Every year, millions
+of people face being diagnosed with a chest disease [1].
+As the lungs are important organs in the human body, any
+damage caused to them could have life threatening implications. On average, 58000 deaths occur only due to pneumonia
+[2]. Chest x-rays are the primary practice to diagnose these
+diseases. The radiologist conducts a thorough visual of the
+x-ray image and writes a report of the patient’s condition. This
+implies the same definition of image based report generation
+which is the task of describing the visual content of image in
+natural language by understanding the visual semantics [3].
+The associate editor coordinating the review of this manuscript and
+approving it for publication was Carmelo Militello
+1814
+
+.
+
+A manually created report describes the general chest condition, findings, and diseases if found. The radiologist must
+possess the following skills to correctly read a chest x-ray [3]:
+thorough knowledge of the basic anatomy of thorax as well
+as physiology various chest diseases, ability to analyze the
+radiograph through identifying different pattern, ability to
+analyze and evaluate the evolution over time of chest x-rays
+and recognize any changes that might occur, knowledge of
+clinical presenta
+
+---
+
+same definition of image based report generation
+which is the task of describing the visual content of image in
+natural language by understanding the visual semantics [3].
+The associate editor coordinating the review of this manuscript and
+approving it for publication was Carmelo Militello
+1814
+
+.
+
+A manually created report describes the general chest condition, findings, and diseases if found. The radiologist must
+possess the following skills to correctly read a chest x-ray [3]:
+thorough knowledge of the basic anatomy of thorax as well
+as physiology various chest diseases, ability to analyze the
+radiograph through identifying different pattern, ability to
+analyze and evaluate the evolution over time of chest x-rays
+and recognize any changes that might occur, knowledge of
+clinical presentation and history, Knowledge of correlation to
+diagnostic results. This laborious task can result in being error
+prone if written by an inexperienced physician while simultaneously being tedious and time consuming for an experienced
+physician. The problem of report generation being a lengthy
+process is highlighted when large amounts of chest x-rays
+need to be analyzed. In highly populated areas, there could be
+hundreds of chest x-rays to analyze daily. Even after gaining
+
+This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/
+
+VOLUME 11, 2023
+
+M. M. Mohsan et al.: Vision Transformer and Language Model Based Radiology Report Generation
+
+extensive experience, it takes a radiologist, on average,
+5 to 10 mi
+
+---
+
+tion and history, Knowledge of correlation to
+diagnostic results. This laborious task can result in being error
+prone if written by an inexperienced physician while simultaneously being tedious and time consuming for an experienced
+physician. The problem of report generation being a lengthy
+process is highlighted when large amounts of chest x-rays
+need to be analyzed. In highly populated areas, there could be
+hundreds of chest x-rays to analyze daily. Even after gaining
+
+This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/
+
+VOLUME 11, 2023
+
+M. M. Mohsan et al.: Vision Transformer and Language Model Based Radiology Report Generation
+
+extensive experience, it takes a radiologist, on average,
+5 to 10 minutes to correctly read a chest x-ray [4].
+Generating a diagnostic report is actually a imageto-sequence problem whose inputs are pixels. A complete
+diagnostic report consists of findings, impressions, and tags.
+Previous solutions make use of a multi- tier system. The
+tags are considered as labels and a multi class classifications produces predicted labels for each chest x-ray image
+[4]. After performing a semantic analysis on the image, the
+correct description is attached. Descriptions in the reports are
+multi sentence long and their generations is crucial to the
+accuracy and quality of the report.Many solutions employing
+LSTM network has been proposed to solve this problem
+such as [4]. However, report descriptions consist of long
+sentences and CNN fails to encode complete features in lat
+
+---
+
+nutes to correctly read a chest x-ray [4].
+Generating a diagnostic report is actually a imageto-sequence problem whose inputs are pixels. A complete
+diagnostic report consists of findings, impressions, and tags.
+Previous solutions make use of a multi- tier system. The
+tags are considered as labels and a multi class classifications produces predicted labels for each chest x-ray image
+[4]. After performing a semantic analysis on the image, the
+correct description is attached. Descriptions in the reports are
+multi sentence long and their generations is crucial to the
+accuracy and quality of the report.Many solutions employing
+LSTM network has been proposed to solve this problem
+such as [4]. However, report descriptions consist of long
+sentences and CNN fails to encode complete features in latent
+space therefore effecting the accuracy’s of report generated
+by LSTM.
+The literature reports earlier attempts to create a radiologist report for a chest X-ray image by incorporating
+multiple CNN-RNN frameworks. In 2017, researchers proposed Transformer, a new simple network architecture that
+completely eschews recurrence and convolutions in favour
+of attention mechanisms. Convolutional or recurrent neural
+networks in an encoder-decoder arrangement constitute the
+foundation of the earlier dominating sequence transduction
+models. The Transformer model also uses the same configuration but relies only on attention mechanism. In order
+to increase overall efficiency, this article provides a novel
+Transformer Medical Report Generator (TrMRG) method for
+producing a chest X-ray report.
+The cont
+
+---
+
+ent
+space therefore effecting the accuracy’s of report generated
+by LSTM.
+The literature reports earlier attempts to create a radiologist report for a chest X-ray image by incorporating
+multiple CNN-RNN frameworks. In 2017, researchers proposed Transformer, a new simple network architecture that
+completely eschews recurrence and convolutions in favour
+of attention mechanisms. Convolutional or recurrent neural
+networks in an encoder-decoder arrangement constitute the
+foundation of the earlier dominating sequence transduction
+models. The Transformer model also uses the same configuration but relies only on attention mechanism. In order
+to increase overall efficiency, this article provides a novel
+Transformer Medical Report Generator (TrMRG) method for
+producing a chest X-ray report.
+The contributions of this paper are summarized as
+follows:
+1) We propose TrMRG (Transformer Medical report
+generator), an end-to-end Transformer-based model
+for report generation with pre-trained computer
+vision (CV) and language models. Although TrOCR
+was the first to adopt this architecture but it was used
+for only classification purposes. To the best of our
+knowledge, this is the first effort to use pre-trained
+image and text Transformers in tandem to generate
+medical reports.
+2) A detailed ablation study has been conducted to identify best pre-trained models for encoder and decoder to
+generate more reliable reports
+3) TrMRG achieves remarkable score with a standard
+Transformer-based encoder-decoder model, which is
+convolution and recurrence free and does not rely on
+training from scratch. It c
+
+---
+
+ributions of this paper are summarized as
+follows:
+1) We propose TrMRG (Transformer Medical report
+generator), an end-to-end Transformer-based model
+for report generation with pre-trained computer
+vision (CV) and language models. Although TrOCR
+was the first to adopt this architecture but it was used
+for only classification purposes. To the best of our
+knowledge, this is the first effort to use pre-trained
+image and text Transformers in tandem to generate
+medical reports.
+2) A detailed ablation study has been conducted to identify best pre-trained models for encoder and decoder to
+generate more reliable reports
+3) TrMRG achieves remarkable score with a standard
+Transformer-based encoder-decoder model, which is
+convolution and recurrence free and does not rely on
+training from scratch. It can be easily fine-tuned to predict accurate reports. The model will be made publicly
+available.
+The remaining of the paper is structured as follows.
+Section 2 examines related literature. The methodology is
+explained in Section 3. The ablation studies and experimental
+results are presented in Section 4, and Section 5 contains the
+conclusion.
+
+VOLUME 11, 2023
+
+II. LITERATURE REVIEW
+
+Automated medical report generation is the application of
+computer vision and language models which has strong societal impact. Medical report generation process started from
+[5] who proposed a CNN-RNN architecture to generate captions for images. These results were however too simple and
+lacked details. As more work was done in the field, attention
+was introduced and models like [6] used attention with RNN
+and 
+
+---
+
+an be easily fine-tuned to predict accurate reports. The model will be made publicly
+available.
+The remaining of the paper is structured as follows.
+Section 2 examines related literature. The methodology is
+explained in Section 3. The ablation studies and experimental
+results are presented in Section 4, and Section 5 contains the
+conclusion.
+
+VOLUME 11, 2023
+
+II. LITERATURE REVIEW
+
+Automated medical report generation is the application of
+computer vision and language models which has strong societal impact. Medical report generation process started from
+[5] who proposed a CNN-RNN architecture to generate captions for images. These results were however too simple and
+lacked details. As more work was done in the field, attention
+was introduced and models like [6] used attention with RNN
+and CNN. This model produced significantly better results.
+Transformers were introduced in 2019 [7]. It is free from
+convolution and recurrence and solely focuses on attention.
+It used Multi attention self-attention (MSA) with multiple
+encoder and decoder layers which made it outperform previous language models. Since 2019, transformers are not only
+used with text but also with images where they have outperformed many existing techniques at different tasks. Here,
+we have divided the literature review into different subsection
+for better understanding.
+A. TRANSFORMER IN LANGUAGE
+
+Transformer models have performed admirably on a variety
+of linguistic tasks. BERT (Bidirectional Encoder Representations from Transformers) [8], GPT2 (Generative Pre-trained
+Transformer) [9], and T5 (Text-to-Text Tran
+
+---
+
+CNN. This model produced significantly better results.
+Transformers were introduced in 2019 [7]. It is free from
+convolution and recurrence and solely focuses on attention.
+It used Multi attention self-attention (MSA) with multiple
+encoder and decoder layers which made it outperform previous language models. Since 2019, transformers are not only
+used with text but also with images where they have outperformed many existing techniques at different tasks. Here,
+we have divided the literature review into different subsection
+for better understanding.
+A. TRANSFORMER IN LANGUAGE
+
+Transformer models have performed admirably on a variety
+of linguistic tasks. BERT (Bidirectional Encoder Representations from Transformers) [8], GPT2 (Generative Pre-trained
+Transformer) [9], and T5 (Text-to-Text Transfer Transformer)
+[10] are a few of the well-liked models. BERT pre-trained the
+Transformer in a self-supervised manner using the Masked
+Language Model (MLM) and Next Sentence Prediction
+(NSP). In the Masked Language Model, 15% of the words
+in a sentence are randomly masked, after which the model
+is trained to predict these words using cross-entropy loss.
+The model gains the ability to take into account the bidirectional context while making predictions. The model predicts
+a binary label for a pair of sentences in NSP. The model
+may construct associations between two sentences as a result.
+They are essential in issues involving natural language, like
+question-answering and natural language inference. A different training approach was used in GPT-2, known as Causal
+Language Modelling, in wh
+
+---
+
+sfer Transformer)
+[10] are a few of the well-liked models. BERT pre-trained the
+Transformer in a self-supervised manner using the Masked
+Language Model (MLM) and Next Sentence Prediction
+(NSP). In the Masked Language Model, 15% of the words
+in a sentence are randomly masked, after which the model
+is trained to predict these words using cross-entropy loss.
+The model gains the ability to take into account the bidirectional context while making predictions. The model predicts
+a binary label for a pair of sentences in NSP. The model
+may construct associations between two sentences as a result.
+They are essential in issues involving natural language, like
+question-answering and natural language inference. A different training approach was used in GPT-2, known as Causal
+Language Modelling, in which the model is trained to predict the next word given all the previous words. GPT-2
+was stacked with only decoder layers of Transformer and
+token embedding along with positional embedings were calculated and added to sequences of tokens as input. Multi-head
+self-attention, feedforward network, layer normalization, and
+residual connections are applied by each layer. DistilGPT-2
+[11] is a popular compressed version of GPT-2. It has fewer
+parameters compared to GPT2. DistilGPT-2 is trained on
+OpenWebTextCorpus by using Knowledge distillation methods. MiniLM [12] uses the same tokenizer as XLM-R while
+having its architecture based on BERT. To make the teacher’s
+self-attention module more moldable and effective for the
+learner, final layer of the transformer is distilled.
+B. TRANSFORMER IN IM
+
+---
+
+ich the model is trained to predict the next word given all the previous words. GPT-2
+was stacked with only decoder layers of Transformer and
+token embedding along with positional embedings were calculated and added to sequences of tokens as input. Multi-head
+self-attention, feedforward network, layer normalization, and
+residual connections are applied by each layer. DistilGPT-2
+[11] is a popular compressed version of GPT-2. It has fewer
+parameters compared to GPT2. DistilGPT-2 is trained on
+OpenWebTextCorpus by using Knowledge distillation methods. MiniLM [12] uses the same tokenizer as XLM-R while
+having its architecture based on BERT. To make the teacher’s
+self-attention module more moldable and effective for the
+learner, final layer of the transformer is distilled.
+B. TRANSFORMER IN IMAGES
+
+Transformers were first used in 2018 [24] as Image generative model. In 2020, [25] Vision Transformer (ViT), also
+
+1815
+
+M. M. Mohsan et al.: Vision Transformer and Language Model Based Radiology Report Generation
+
+TABLE 1. Literature review summary table.
+
+known as vanilla image transformer, was proposed to demonstrate Transformer in image classification which outperformed existing image recognition benchmarks (ImageNet,
+CIFAR-100, VTAB, etc.). Vision Transformer (ViT) is the
+first implementation of a transformer in a deep neural network
+on large-scale image datasets. They took sequences of image
+patches which were flattened as vectors and then applied
+the original transformer model. The model was trained on
+a large dataset and then refined to downstream recognition
+benchmarks such
+
+---
+
+AGES
+
+Transformers were first used in 2018 [24] as Image generative model. In 2020, [25] Vision Transformer (ViT), also
+
+1815
+
+M. M. Mohsan et al.: Vision Transformer and Language Model Based Radiology Report Generation
+
+TABLE 1. Literature review summary table.
+
+known as vanilla image transformer, was proposed to demonstrate Transformer in image classification which outperformed existing image recognition benchmarks (ImageNet,
+CIFAR-100, VTAB, etc.). Vision Transformer (ViT) is the
+first implementation of a transformer in a deep neural network
+on large-scale image datasets. They took sequences of image
+patches which were flattened as vectors and then applied
+the original transformer model. The model was trained on
+a large dataset and then refined to downstream recognition
+benchmarks such as ImageNet classification. Spatial biasness
+is one of the inductive biasness present in CNN hence a
+CNN assumes a certain structure is present in images so
+it updates it filter parameters accordingly in order to classify images. Transformers does not inherit spatial biasness
+property opposed to CNN as they are solely based on attentions. DeiT [26] showed that it was possible to learn Transformers on mid-sized datasets in relatively shorter training
+episodes. It used procedures found in CNNs such as augmentation and regularization and adopted a unique knowledge
+distillation approach to train Transformers. A CNN model
+was employed as teacher model to distill a student Transformer. New properties to ViT that are different compared
+to convolutional networks were added by the DINO work
+[27]. 

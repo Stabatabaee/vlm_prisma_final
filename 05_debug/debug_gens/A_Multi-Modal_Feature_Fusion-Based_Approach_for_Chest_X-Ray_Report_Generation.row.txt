@@ -1,0 +1,1 @@
+| A_Multi-Modal_Feature_Fusion-Based_Approach_for_Chest_X-Ray_Report_Generation.pdf | N/A | hand | N/A | N/A | a | vision transformer | transformer | fusion |

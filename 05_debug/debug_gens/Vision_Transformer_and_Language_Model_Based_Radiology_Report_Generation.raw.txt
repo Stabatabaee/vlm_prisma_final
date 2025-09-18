@@ -1,0 +1,1 @@
+| Vision_Transformer_and_Language_Model_Based_Radiology_Report_Generation.pdf | Vision Transformer And Language Model Based Radiology Report Generation | Mohsan et al. | X-Ray | Indiana University Chest X-rays | N/A | ViT-B/16 | BERT | N/A |
