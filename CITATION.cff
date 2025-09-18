@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this code or artifacts, please cite this repository."
+title: "VLM_PRISMA Final Project Kit"
+authors:
+  - family-names: "Tabatabaee"
+    given-names: "Sadaf"
+version: "1.0.0"
+date-released: "2025-09-18"
+repository-code: "https://github.com/Stabatabaee/vlm_prisma_final"
+license: "MIT"
+keywords: [radiology, vision-language models, PRISMA, systematic review]
