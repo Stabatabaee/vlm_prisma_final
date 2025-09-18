@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+
+# Envs & editors
+.venv/
+env/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Project-specific (keep repo lean)
+chroma_db*/
+.chromadb*/
+**/pdfs/
+**/runs/
+**/.tmp_inputs*/
+**/backups*/
+**/debug*/raw/
+**/cache*/
